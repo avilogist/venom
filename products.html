@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>Venom | Products</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/venom.png"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: #050505;
+            color: #eee;
+            font-family: Inter, system-ui, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        body,
+        body * {
+            text-shadow:
+                -.7px -.7px .5px rgba(255, 255, 255, .18),
+                .8px .9px 0 rgba(0, 0, 0, .95),
+                0 1.5px 2px rgba(0, 0, 0, .5);
+        }
+
+        svg {
+            filter:
+                drop-shadow(-.8px -.8px .5px rgba(255, 255, 255, .24))
+                drop-shadow(.8px .9px 0 rgba(0, 0, 0, .96));
+        }
+
+        .top {
+            height: 72px;
+            border-bottom: 1px solid #171717;
+            display: flex;
+            align-items: center;
+            padding: 0 clamp(14px, 3vw, 30px);
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, .96);
+            backdrop-filter: blur(14px);
+            z-index: 20;
+        }
+
+        .logo {
+            width: clamp(148px, 17vw, 194px);
+            height: 52px;
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        .nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: clamp(16px, 2.4vw, 30px);
+            height: 100%;
+        }
+
+        .tab {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            color: #8f8f8f;
+            text-decoration: none;
+            font-size: clamp(10px, 1vw, 13px);
+            font-weight: 600;
+            letter-spacing: .08em;
+            position: relative;
+            transition: .2s;
+            white-space: nowrap;
+        }
+
+        .tab:hover,
+        .tab.on {
+            color: #d72828;
+        }
+
+        .tab.on::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 20px;
+            height: 2px;
+            background: #d72828;
+            border-radius: 999px;
+        }
+
+        main {
+            width: min(930px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: clamp(48px, 7vw, 76px) 0;
+            flex: 1;
+        }
+
+        .eyebrow {
+            color: #d72828;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 11px 0 0;
+            color: #f1f1f1;
+            font-size: clamp(30px, 6vw, 48px);
+            font-weight: 600;
+        }
+
+        .lead {
+            margin-top: 18px;
+            max-width: 620px;
+            color: #777;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .products {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .product {
+            min-height: 270px;
+            border: 1px solid #1e1e1e;
+            border-radius: 13px;
+            padding: 22px;
+            background:
+                radial-gradient(
+                    circle at 10% 0%,
+                    rgba(215, 40, 40, .055),
+                    transparent 37%
+                ),
+                #0a0a0a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .productTop {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .productIcon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            border: 1px solid #292929;
+            background: #121212;
+            color: #aaa;
+            display: grid;
+            place-items: center;
+        }
+
+        .productIcon svg {
+            width: 19px;
+            height: 19px;
+        }
+
+        .status {
+            min-height: 24px;
+            padding: 0 9px;
+            border: 1px solid #392323;
+            border-radius: 999px;
+            background: #130b0b;
+            color: #b94a4a;
+            display: flex;
+            align-items: center;
+            font-size: 8px;
+            font-weight: 600;
+        }
+
+        .productName {
+            margin-top: 24px;
+            color: #ddd;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .productText {
+            margin-top: 9px;
+            color: #6f6f6f;
+            font-size: 10px;
+            line-height: 1.75;
+        }
+
+        .features {
+            margin: 20px 0 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 9px;
+        }
+
+        .features li {
+            color: #777;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features svg {
+            width: 12px;
+            height: 12px;
+            color: #a63838;
+        }
+
+        .productBottom {
+            margin-top: auto;
+            padding-top: 24px;
+        }
+
+        .productButton {
+            min-height: 38px;
+            width: 100%;
+            border: 1px solid #292929;
+            border-radius: 9px;
+            background:
+                linear-gradient(
+                    145deg,
+                    #252525,
+                    #181818 55%,
+                    #111
+                );
+            box-shadow:
+                0 3px 0 #3d3d3d,
+                inset 1px 1px 0 rgba(255, 255, 255, .07);
+            color: #8a8a8a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .productButton svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        .foot {
+            margin-top: auto;
+            min-height: 112px;
+            border-top: 1px solid #171717;
+            padding: 16px clamp(14px, 3vw, 30px);
+            display: grid;
+            grid-template-columns:
+                minmax(170px, 1fr)
+                auto
+                minmax(170px, 1fr);
+            align-items: start;
+            gap: 28px;
+            color: #666;
+        }
+
+        .fbrand {
+            position: relative;
+            width: fit-content;
+            padding-top: 7px;
+        }
+
+        .flogo {
+            width: clamp(158px, 16vw, 190px);
+            height: 52px;
+            object-fit: contain;
+            object-position: left center;
+            filter: grayscale(1);
+            opacity: .38;
+        }
+
+        .copy {
+            position: absolute;
+            top: 3px;
+            right: -21px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            color: #666;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .copy svg {
+            width: 9px;
+            height: 9px;
+        }
+
+        .fcols {
+            display: flex;
+            justify-content: center;
+            gap: clamp(34px, 7vw, 76px);
+        }
+
+        .fcol {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 100px;
+        }
+
+        .ftitle {
+            margin-bottom: 3px;
+            color: #b9b9b9;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .fcol a {
+            color: #666;
+            text-decoration: none;
+            font-size: 10px;
+        }
+
+        .fcol a:hover {
+            color: #d72828;
+        }
+
+        @media (max-width: 700px) {
+            .top {
+                height: 64px;
+                padding: 0 10px;
+            }
+
+            .logo {
+                width: 122px;
+                height: 44px;
+            }
+
+            .nav {
+                gap: 12px;
+            }
+
+            .tab {
+                font-size: 9px;
+                letter-spacing: .05em;
+            }
+
+            .tab.on::after {
+                bottom: 17px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .foot {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+
+            .fcols {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 34px;
+            }
+
+            .fspace {
+                display: none;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .logo {
+                width: 100px;
+            }
+
+            .nav {
+                gap: 8px;
+            }
+
+            .tab {
+                font-size: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <a href="index.html">
+            <img
+                class="logo"
+                src="assets/logo.png"
+                alt="Venom"
+            >
+        </a>
+
+        <nav class="nav">
+            <a
+                class="tab"
+                href="index.html"
+            >
+                Home
+            </a>
+
+            <a
+                class="tab on"
+                href="products.html"
+            >
+                Products
+            </a>
+
+            <a
+                class="tab"
+                href="about.html"
+            >
+                About
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="eyebrow">
+            Products
+        </div>
+
+        <h1>
+            Venom products.
+        </h1>
+
+        <p class="lead">
+            Venom is still in development. Products shown here
+            represent what is currently being built and are not
+            available for purchase yet.
+        </p>
+
+        <div class="products">
+            <article class="product">
+                <div class="productTop">
+                    <div class="productIcon">
+                        <i data-lucide="terminal"></i>
+                    </div>
+
+                    <div class="status">
+                        In development
+                    </div>
+                </div>
+
+                <div class="productName">
+                    Venom
+                </div>
+
+                <div class="productText">
+                    The main Venom software experience with
+                    account-based access, authentication, and
+                    scripting functionality.
+                </div>
+
+                <ul class="features">
+                    <li>
+                        <i data-lucide="check"></i>
+                        Venom account integration
+                    </li>
+
+                    <li>
+                        <i data-lucide="check"></i>
+                        Protected authentication
+                    </li>
+
+                    <li>
+                        <i data-lucide="check"></i>
+                        Script execution tools
+                    </li>
+                </ul>
+
+                <div class="productBottom">
+                    <div class="productButton">
+                        <i data-lucide="clock-3"></i>
+                        Coming soon
+                    </div>
+                </div>
+            </article>
+
+            <article class="product">
+                <div class="productTop">
+                    <div class="productIcon">
+                        <i data-lucide="code-2"></i>
+                    </div>
+
+                    <div class="status">
+                        Planned
+                    </div>
+                </div>
+
+                <div class="productName">
+                    Universal Scripts
+                </div>
+
+                <div class="productText">
+                    A future collection of scripts and utilities
+                    designed to work alongside the Venom software
+                    platform.
+                </div>
+
+                <ul class="features">
+                    <li>
+                        <i data-lucide="check"></i>
+                        Managed access
+                    </li>
+
+                    <li>
+                        <i data-lucide="check"></i>
+                        Venom account support
+                    </li>
+
+                    <li>
+                        <i data-lucide="check"></i>
+                        Central script library
+                    </li>
+                </ul>
+
+                <div class="productBottom">
+                    <div class="productButton">
+                        <i data-lucide="clock-3"></i>
+                        Coming soon
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer
+        class="foot"
+        id="footer"
+    ></footer>
+
+    <script src="footer.js"></script>
+    <script src="cookie.js"></script>
+
+    <script>
+        if (
+            window.lucide
+        ) {
+            lucide.createIcons();
+        }
+
+        (() => {
+            if (
+                matchMedia(
+                    "(pointer: coarse)"
+                ).matches
+            ) {
+                return;
+            }
+
+            let target =
+                scrollY;
+
+            let current =
+                scrollY;
+
+            let running =
+                false;
+
+            const clamp = value => {
+                const max =
+                    Math.max(
+                        0,
+                        document.documentElement.scrollHeight -
+                        innerHeight
+                    );
+
+                return Math.max(
+                    0,
+                    Math.min(
+                        max,
+                        value
+                    )
+                );
+            };
+
+            const frame = () => {
+                current +=
+                    (
+                        target -
+                        current
+                    ) *
+                    .16;
+
+                if (
+                    Math.abs(
+                        target -
+                        current
+                    ) <
+                    .5
+                ) {
+                    current =
+                        target;
+
+                    scrollTo(
+                        0,
+                        current
+                    );
+
+                    running =
+                        false;
+
+                    return;
+                }
+
+                scrollTo(
+                    0,
+                    current
+                );
+
+                requestAnimationFrame(
+                    frame
+                );
+            };
+
+            addEventListener(
+                "wheel",
+                event => {
+                    if (
+                        document.documentElement.scrollHeight <=
+                        innerHeight + 1
+                    ) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    target =
+                        clamp(
+                            target +
+                            event.deltaY *
+                            .9
+                        );
+
+                    if (
+                        !running
+                    ) {
+                        current =
+                            scrollY;
+
+                        running =
+                            true;
+
+                        requestAnimationFrame(
+                            frame
+                        );
+                    }
+                },
+                {
+                    passive:
+                        false
+                }
+            );
+        })();
+    </script>
+</body>
+</html>

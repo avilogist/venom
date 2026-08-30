@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>Venom | Terms of Service</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/venom.png"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: #050505;
+            color: #ddd;
+            font-family: Inter, system-ui, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .top {
+            height: 72px;
+            padding: 0 clamp(14px, 3vw, 30px);
+            border-bottom: 1px solid #171717;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, .96);
+            backdrop-filter: blur(14px);
+            z-index: 10;
+        }
+
+        .logo {
+            width: clamp(148px, 17vw, 194px);
+            height: 52px;
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        .home {
+            margin-left: auto;
+            color: #888;
+            text-decoration: none;
+            display: grid;
+            place-items: center;
+            padding: 7px;
+        }
+
+        .home:hover {
+            color: #d72828;
+        }
+
+        .home svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        main {
+            width: min(850px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 50px 0 70px;
+            flex: 1;
+        }
+
+        .eyebrow {
+            color: #d52c2c;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 9px 0 0;
+            color: #f0f0f0;
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 600;
+        }
+
+        .updated {
+            margin-top: 10px;
+            color: #5e5e5e;
+            font-size: 10px;
+        }
+
+        .intro {
+            margin-top: 24px;
+            color: #979797;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        section {
+            padding: 27px 0;
+            border-bottom: 1px solid #181818;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            color: #d5d5d5;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            margin: 0 0 12px;
+            color: #858585;
+            font-size: 12px;
+            line-height: 1.85;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .foot {
+            margin-top: auto;
+            min-height: 112px;
+            border-top: 1px solid #171717;
+            padding: 16px clamp(14px, 3vw, 30px);
+            display: grid;
+            grid-template-columns:
+                minmax(170px, 1fr)
+                auto
+                minmax(170px, 1fr);
+            align-items: start;
+            gap: 28px;
+            color: #666;
+        }
+
+        .fbrand {
+            position: relative;
+            width: fit-content;
+            padding-top: 7px;
+        }
+
+        .flogo {
+            width: clamp(158px, 16vw, 190px);
+            height: 52px;
+            object-fit: contain;
+            object-position: left center;
+            filter: grayscale(1);
+            opacity: .38;
+        }
+
+        .copy {
+            position: absolute;
+            top: 3px;
+            right: -21px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .copy svg {
+            width: 9px;
+            height: 9px;
+        }
+
+        .fcols {
+            display: flex;
+            justify-content: center;
+            gap: clamp(34px, 7vw, 76px);
+        }
+
+        .fcol {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 100px;
+        }
+
+        .ftitle {
+            margin-bottom: 3px;
+            color: #b9b9b9;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .fcol a {
+            color: #666;
+            text-decoration: none;
+            font-size: 10px;
+        }
+
+        .fcol a:hover {
+            color: #d72828;
+        }
+
+        @media (max-width: 640px) {
+            .top {
+                height: 64px;
+            }
+
+            .logo {
+                width: 132px;
+                height: 44px;
+            }
+
+            main {
+                padding-top: 38px;
+            }
+
+            .foot {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+
+            .fcols {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 34px;
+            }
+
+            .fspace {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <a href="index.html">
+            <img
+                class="logo"
+                src="assets/logo.png"
+                alt="Venom"
+            >
+        </a>
+
+        <a
+            class="home"
+            href="index.html"
+            aria-label="Home"
+        >
+            <i data-lucide="house"></i>
+        </a>
+    </header>
+
+    <main>
+        <div class="eyebrow">
+            Legal
+        </div>
+
+        <h1>
+            Terms of Service
+        </h1>
+
+        <div class="updated">
+            Effective 28 August 2026
+        </div>
+
+        <p class="intro">
+            By downloading, purchasing, accessing, or using Venom,
+            its software, scripts, authentication system, or related
+            services, you agree to these Terms of Service.
+        </p>
+
+        <section>
+            <h2>1. Service</h2>
+
+            <p>
+                Venom provides software, authentication, licensing,
+                scripting functionality, account services, and related
+                tools that may change during development.
+            </p>
+        </section>
+
+        <section>
+            <h2>2. Age requirement</h2>
+
+            <p>
+                You must be at least 18 years old to create or use
+                a Venom account.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Lawful and responsible use</h2>
+
+            <p>
+                You may not use Venom for malware, credential theft,
+                unauthorized access, fraud, harassment, unauthorized
+                collection of personal information, or deliberate
+                damage or disruption.
+            </p>
+        </section>
+
+        <section>
+            <h2>4. Roblox and third-party services</h2>
+
+            <p>
+                Venom is independent and is not affiliated with,
+                endorsed by, sponsored by, or operated by Roblox
+                Corporation.
+            </p>
+
+            <p>
+                Use of Venom may violate rules imposed by third-party
+                services. You accept the risk of warnings, restrictions,
+                account bans, data loss, or other enforcement.
+            </p>
+        </section>
+
+        <section>
+            <h2>5. Scripts and content</h2>
+
+            <p>
+                You are responsible for scripts and other content you
+                choose to execute. Do not run scripts from sources you
+                do not trust.
+            </p>
+        </section>
+
+        <section>
+            <h2>6. Authentication and device information</h2>
+
+            <p>
+                Venom may process device information and identifiers
+                for authentication, licensing, abuse prevention, and
+                fraud detection.
+            </p>
+
+            <p>
+                Where practicable, identifiers may be transformed using
+                cryptographic hashing or keyed derivation rather than
+                stored in their original form.
+            </p>
+        </section>
+
+        <section>
+            <h2>7. Account security</h2>
+
+            <p>
+                You are responsible for maintaining control of your
+                account credentials and preventing unauthorized access.
+            </p>
+        </section>
+
+        <section>
+            <h2>8. Privacy and protected account data</h2>
+
+            <p>
+                Venom uses technical protections intended to reduce
+                exposure of account information, including cryptographic
+                hashing, keyed lookup values, encrypted profile data,
+                and protected authentication sessions.
+            </p>
+        </section>
+
+        <section>
+            <h2>9. Suspension and termination</h2>
+
+            <p>
+                Access may be restricted or terminated for abuse,
+                prohibited redistribution, payment fraud, attempts to
+                compromise Venom, malicious activity, or violations
+                of these Terms.
+            </p>
+        </section>
+
+        <section>
+            <h2>10. Availability</h2>
+
+            <p>
+                Venom does not guarantee permanent availability,
+                uninterrupted operation, compatibility, or continued
+                support for any specific third-party platform version.
+            </p>
+        </section>
+
+        <section>
+            <h2>11. Disclaimer</h2>
+
+            <p>
+                Venom is provided on an "as is" and "as available"
+                basis to the maximum extent permitted by applicable law.
+            </p>
+        </section>
+
+        <section>
+            <h2>12. Limitation of liability</h2>
+
+            <p>
+                To the maximum extent permitted by applicable law,
+                Venom is not responsible for account bans, lost items,
+                lost data, downtime, incompatibility, or indirect or
+                consequential losses arising from use of the Service.
+            </p>
+        </section>
+
+        <section>
+            <h2>13. Payments and refunds</h2>
+
+            <p>
+                Venom does not currently offer paid products. Payment
+                and refund terms may be introduced before paid products
+                become available.
+            </p>
+        </section>
+
+        <section>
+            <h2>14. Changes</h2>
+
+            <p>
+                These Terms may be updated as Venom changes. Continued
+                use after an updated version becomes effective may
+                require acceptance of the updated Terms.
+            </p>
+        </section>
+
+        <section>
+            <h2>15. Entire agreement</h2>
+
+            <p>
+                These Terms, together with the Privacy Policy,
+                Cookie Policy, and Acceptable Use Policy, form the
+                current agreement governing use of Venom.
+            </p>
+        </section>
+    </main>
+
+    <footer
+        class="foot"
+        id="footer"
+    ></footer>
+
+    <script src="footer.js"></script>
+    <script src="cookie.js"></script>
+
+    <script>
+        if (
+            window.lucide
+        ) {
+            lucide.createIcons();
+        }
+
+        (() => {
+            if (
+                matchMedia(
+                    "(pointer: coarse)"
+                ).matches
+            ) {
+                return;
+            }
+
+            let target =
+                scrollY;
+
+            let current =
+                scrollY;
+
+            let running =
+                false;
+
+            const maxScroll = () =>
+                Math.max(
+                    0,
+                    document.documentElement.scrollHeight -
+                    innerHeight
+                );
+
+            const frame = () => {
+                current +=
+                    (
+                        target -
+                        current
+                    ) *
+                    .16;
+
+                if (
+                    Math.abs(
+                        target -
+                        current
+                    ) <
+                    .5
+                ) {
+                    current =
+                        target;
+
+                    scrollTo(
+                        0,
+                        current
+                    );
+
+                    running =
+                        false;
+
+                    return;
+                }
+
+                scrollTo(
+                    0,
+                    current
+                );
+
+                requestAnimationFrame(
+                    frame
+                );
+            };
+
+            addEventListener(
+                "wheel",
+                event => {
+                    const max =
+                        maxScroll();
+
+                    if (
+                        max <=
+                        1
+                    ) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    target =
+                        Math.max(
+                            0,
+                            Math.min(
+                                max,
+                                target +
+                                event.deltaY *
+                                .9
+                            )
+                        );
+
+                    if (
+                        !running
+                    ) {
+                        current =
+                            scrollY;
+
+                        running =
+                            true;
+
+                        requestAnimationFrame(
+                            frame
+                        );
+                    }
+                },
+                {
+                    passive:
+                        false
+                }
+            );
+        })();
+    </script>
+</body>
+</html>

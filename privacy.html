@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>Venom | Privacy Policy</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/venom.png"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: #050505;
+            color: #ddd;
+            font-family: Inter, system-ui, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .top {
+            height: 72px;
+            padding: 0 clamp(14px, 3vw, 30px);
+            border-bottom: 1px solid #171717;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, .96);
+            backdrop-filter: blur(14px);
+            z-index: 10;
+        }
+
+        .logo {
+            width: clamp(148px, 17vw, 194px);
+            height: 52px;
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        .home {
+            margin-left: auto;
+            color: #888;
+            text-decoration: none;
+            display: grid;
+            place-items: center;
+            padding: 7px;
+        }
+
+        .home:hover {
+            color: #d72828;
+        }
+
+        main {
+            width: min(850px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 50px 0 70px;
+            flex: 1;
+        }
+
+        .eyebrow {
+            color: #d52c2c;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 9px 0 0;
+            color: #f0f0f0;
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 600;
+        }
+
+        .updated {
+            margin-top: 10px;
+            color: #5e5e5e;
+            font-size: 10px;
+        }
+
+        .intro {
+            margin-top: 24px;
+            color: #979797;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        section {
+            padding: 27px 0;
+            border-bottom: 1px solid #181818;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            color: #d5d5d5;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            margin: 0 0 12px;
+            color: #858585;
+            font-size: 12px;
+            line-height: 1.85;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .foot {
+            margin-top: auto;
+            min-height: 112px;
+            border-top: 1px solid #171717;
+            padding: 16px clamp(14px, 3vw, 30px);
+            display: grid;
+            grid-template-columns:
+                minmax(170px, 1fr)
+                auto
+                minmax(170px, 1fr);
+            gap: 28px;
+        }
+
+        .fbrand {
+            position: relative;
+            width: fit-content;
+        }
+
+        .flogo {
+            width: 180px;
+            height: 52px;
+            object-fit: contain;
+            filter: grayscale(1);
+            opacity: .38;
+        }
+
+        .copy {
+            position: absolute;
+            top: 3px;
+            right: -21px;
+            display: flex;
+            align-items: center;
+            font-size: 9px;
+            color: #666;
+        }
+
+        .fcols {
+            display: flex;
+            gap: 60px;
+        }
+
+        .fcol {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ftitle {
+            color: #aaa;
+            font-size: 10px;
+        }
+
+        .fcol a {
+            color: #666;
+            font-size: 10px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 640px) {
+            .top {
+                height: 64px;
+            }
+
+            .logo {
+                width: 132px;
+                height: 44px;
+            }
+
+            .foot {
+                grid-template-columns: 1fr;
+            }
+
+            .fcols {
+                gap: 34px;
+                flex-wrap: wrap;
+            }
+
+            .fspace {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <a href="index.html">
+            <img
+                class="logo"
+                src="assets/logo.png"
+                alt="Venom"
+            >
+        </a>
+
+        <a
+            class="home"
+            href="index.html"
+        >
+            <i data-lucide="house"></i>
+        </a>
+    </header>
+
+    <main>
+        <div class="eyebrow">
+            Legal
+        </div>
+
+        <h1>
+            Privacy Policy
+        </h1>
+
+        <div class="updated">
+            Last updated: 28 August 2026
+        </div>
+
+        <p class="intro">
+            This Privacy Policy explains how Venom processes account,
+            authentication, device, and technical information.
+        </p>
+
+        <section>
+            <h2>1. Account identifiers</h2>
+
+            <p>
+                Email addresses and usernames submitted during account
+                registration are normalized before being converted into
+                keyed cryptographic lookup values for database matching.
+            </p>
+
+            <p>
+                Venom does not need to store plaintext email or username
+                lookup values in the account database.
+            </p>
+        </section>
+
+        <section>
+            <h2>2. Display usernames</h2>
+
+            <p>
+                A display username may be stored in encrypted form so
+                Venom can display the username after authentication.
+            </p>
+
+            <p>
+                Unlike one-way lookup values, encrypted display data
+                can be decrypted by Venom when the required encryption
+                key is available.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Password protection</h2>
+
+            <p>
+                Passwords are not stored in plaintext and are not stored
+                using reversible encryption.
+            </p>
+
+            <p>
+                Password processing uses a server-side secret together
+                with a password derivation function and a unique salt.
+            </p>
+        </section>
+
+        <section>
+            <h2>4. Technical and network information</h2>
+
+            <p>
+                When you access Venom, infrastructure may process
+                technical information such as IP address, browser
+                information, language, country or network location,
+                and request metadata.
+            </p>
+        </section>
+
+        <section>
+            <h2>5. Human verification</h2>
+
+            <p>
+                Venom may process browser interaction signals and
+                temporary challenge information to help distinguish
+                normal human activity from automated abuse.
+            </p>
+        </section>
+
+        <section>
+            <h2>6. Authentication sessions</h2>
+
+            <p>
+                Authentication sessions use randomly generated tokens.
+                Venom stores a cryptographic hash of the authentication
+                token rather than the original token value.
+            </p>
+        </section>
+
+        <section>
+            <h2>7. Device identifiers</h2>
+
+            <p>
+                Device information or hardware-related identifiers may
+                be processed for authentication, licensing, fraud
+                prevention, and abuse prevention.
+            </p>
+
+            <p>
+                Where practicable, original identifiers may be
+                transformed before persistence.
+            </p>
+        </section>
+
+        <section>
+            <h2>8. Data minimisation</h2>
+
+            <p>
+                Venom is designed to limit stored account information
+                to information needed for authentication, security,
+                account functionality, legal records, and abuse
+                prevention.
+            </p>
+        </section>
+
+        <section>
+            <h2>9. Requests for information</h2>
+
+            <p>
+                Venom can only provide information it actually possesses
+                or can lawfully access.
+            </p>
+
+            <p>
+                Cryptographic protections do not remove legal duties
+                that may apply to information Venom is able to access.
+            </p>
+        </section>
+
+        <section>
+            <h2>10. Security limitations</h2>
+
+            <p>
+                Venom uses security controls intended to reduce risk,
+                but no software, network, database, or cryptographic
+                system can guarantee absolute security.
+            </p>
+        </section>
+
+        <section>
+            <h2>11. Changes</h2>
+
+            <p>
+                This Privacy Policy may be updated as Venom's systems,
+                products, or legal requirements change.
+            </p>
+        </section>
+    </main>
+
+    <footer
+        class="foot"
+        id="footer"
+    ></footer>
+
+    <script src="footer.js"></script>
+    <script src="cookie.js"></script>
+
+    <script>
+        if (
+            window.lucide
+        ) {
+            lucide.createIcons();
+        }
+
+        (() => {
+            if (
+                matchMedia(
+                    "(pointer: coarse)"
+                ).matches
+            ) {
+                return;
+            }
+
+            let target =
+                scrollY;
+
+            let current =
+                scrollY;
+
+            let running =
+                false;
+
+            const frame = () => {
+                const max =
+                    Math.max(
+                        0,
+                        document.documentElement.scrollHeight -
+                        innerHeight
+                    );
+
+                target =
+                    Math.max(
+                        0,
+                        Math.min(
+                            max,
+                            target
+                        )
+                    );
+
+                current +=
+                    (
+                        target -
+                        current
+                    ) *
+                    .16;
+
+                if (
+                    Math.abs(
+                        target -
+                        current
+                    ) <
+                    .5
+                ) {
+                    current =
+                        target;
+
+                    scrollTo(
+                        0,
+                        current
+                    );
+
+                    running =
+                        false;
+
+                    return;
+                }
+
+                scrollTo(
+                    0,
+                    current
+                );
+
+                requestAnimationFrame(
+                    frame
+                );
+            };
+
+            addEventListener(
+                "wheel",
+                event => {
+                    const max =
+                        document.documentElement.scrollHeight -
+                        innerHeight;
+
+                    if (
+                        max <=
+                        1
+                    ) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    target +=
+                        event.deltaY *
+                        .9;
+
+                    target =
+                        Math.max(
+                            0,
+                            Math.min(
+                                max,
+                                target
+                            )
+                        );
+
+                    if (
+                        !running
+                    ) {
+                        current =
+                            scrollY;
+
+                        running =
+                            true;
+
+                        requestAnimationFrame(
+                            frame
+                        );
+                    }
+                },
+                {
+                    passive:
+                        false
+                }
+            );
+        })();
+    </script>
+</body>
+</html>
