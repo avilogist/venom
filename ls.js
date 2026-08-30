@@ -81,15 +81,6 @@ let mode =
 let sessionToken =
     "";
 
-let captchaChallenge =
-    "";
-
-let captchaVerified =
-    false;
-
-let captchaBusy =
-    false;
-
 let turnstileToken =
     "";
 
@@ -98,6 +89,9 @@ let turnstileWidgetId =
 
 let turnstileLoadPromise =
     null;
+
+let captchaVerified =
+    false;
 
 let usernameAvailable =
     null;
@@ -123,33 +117,6 @@ let pendingAuthentication =
 let verificationPurpose =
     "";
 
-let pointerSamples =
-    [];
-
-let pointerDistance =
-    0;
-
-let directionChanges =
-    0;
-
-let previousPointer =
-    null;
-
-let previousDirection =
-    null;
-
-let typingTimes =
-    [];
-
-let lastTypingTime =
-    0;
-
-let visibilityChanges =
-    0;
-
-let focusChanges =
-    0;
-
 installAuthStyles();
 
 function installAuthStyles() {
@@ -172,13 +139,10 @@ function installAuthStyles() {
     style.textContent = `
         #captcha {
             width: 100% !important;
-            min-height: 56px !important;
+            min-height: 86px !important;
             margin-top: 17px !important;
-            padding: 0 14px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: flex-start !important;
-            gap: 12px !important;
+            padding: 12px !important;
+            display: block !important;
             border: 1px solid #202020 !important;
             border-radius: 9px !important;
             background:
@@ -189,82 +153,25 @@ function installAuthStyles() {
                 ),
                 #0b0b0b !important;
             color: #d0d0d0 !important;
-            text-align: left !important;
-            cursor: pointer !important;
             box-shadow:
                 inset 1px 1px 0 rgba(255,255,255,.025),
                 0 2px 7px rgba(0,0,0,.16) !important;
-            transition:
-                border-color .15s,
-                background .15s !important;
         }
 
-        #captcha:hover:not(:disabled) {
-            background: #0f0f0f !important;
-            border-color: #292929 !important;
-        }
-
-        #captcha:disabled {
-            cursor: default !important;
-            opacity: .7;
-        }
-
-        #captcha .venomCaptchaBox {
-            width: 21px;
-            height: 21px;
-            min-width: 21px;
-            display: grid;
-            place-items: center;
-            border: 1px solid #424242;
-            border-radius: 4px;
-            background: #080808;
-            box-shadow:
-                inset 1px 1px 0 rgba(255,255,255,.025);
-            transition:
-                background .15s,
-                border-color .15s,
-                transform .15s;
-        }
-
-        #captcha .venomCaptchaBox svg {
-            width: 14px;
-            height: 14px;
-            stroke: #fff;
-            stroke-width: 3;
-            opacity: 0;
-            transform: scale(.55);
-            transition:
-                opacity .15s,
-                transform .15s;
-        }
-
-        #captcha.verified .venomCaptchaBox {
-            border-color: #5a5a5a;
-            background: #171717;
-        }
-
-        #captcha.verified .venomCaptchaBox svg {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        #captcha .venomCaptchaCopy {
+        #turnstileWidget {
+            width: 100%;
+            min-height: 65px;
             display: flex;
-            flex-direction: column;
-            min-width: 0;
-            gap: 3px;
+            align-items: center;
+            justify-content: center;
         }
 
-        #captcha .captchaTitle {
-            color: #c9c9c9 !important;
-            font-size: 11px !important;
-            font-weight: 600 !important;
-        }
-
-        #captcha .captchaSub {
-            color: #5f5f5f !important;
-            font-size: 9px !important;
-            line-height: 1.4 !important;
+        #turnstileStatus {
+            margin-top: 7px;
+            color: #6c6c6c;
+            font-size: 9px;
+            text-align: center;
+            line-height: 1.4;
         }
 
         .venomCodeOverlay {
@@ -428,6 +335,14 @@ function installAuthStyles() {
     document.head.appendChild(
         style
     );
+
+    if (
+        document.querySelector(
+            "#emailCodeOverlay"
+        )
+    ) {
+        return;
+    }
 
     const overlay =
         document.createElement(
@@ -1213,11 +1128,19 @@ function render() {
         `;
     }
 
-    googleText.textContent =
-        "Continue with Google";
+    if (
+        googleText
+    ) {
+        googleText.textContent =
+            "Continue with Google";
+    }
 
-    discordText.textContent =
-        "Continue with Discord";
+    if (
+        discordText
+    ) {
+        discordText.textContent =
+            "Continue with Discord";
+    }
 
     bindFields();
 
@@ -1311,16 +1234,17 @@ function bindFields() {
                 return;
             }
 
+            const okay =
+                validEmail(
+                    value
+                );
+
             setFieldHint(
                 "emailHint",
-                validEmail(
-                    value
-                )
+                okay
                     ? ""
                     : "Use an email in the form x@x.x.",
-                validEmail(
-                    value
-                )
+                okay
                     ? ""
                     : "bad"
             );
@@ -1400,17 +1324,6 @@ function bindFields() {
             checkbox.addEventListener(
                 "change",
                 updateSubmitState
-            );
-        }
-    );
-
-    document.querySelectorAll(
-        "#fields input"
-    ).forEach(
-        input => {
-            input.addEventListener(
-                "keydown",
-                trackTyping
             );
         }
     );
@@ -1740,15 +1653,10 @@ function setSubmitBusy(
         return;
     }
 
-    if (
+    submitBtn.style.opacity =
         busy
-    ) {
-        submitBtn.style.opacity =
-            ".65";
-    } else {
-        submitBtn.style.opacity =
-            "";
-    }
+            ? ".65"
+            : "";
 }
 
 function updateSubmitState() {
@@ -1767,6 +1675,43 @@ function updateSubmitState() {
         );
 }
 
+function prepareTurnstileContainer() {
+    if (
+        !captcha
+    ) {
+        return;
+    }
+
+    if (
+        captcha.tagName
+            ?.toLowerCase() ===
+        "button"
+    ) {
+        const replacement =
+            document.createElement(
+                "div"
+            );
+
+        replacement.id =
+            captcha.id;
+
+        replacement.className =
+            captcha.className;
+
+        replacement.setAttribute(
+            "aria-label",
+            "Human verification"
+        );
+
+        captcha.replaceWith(
+            replacement
+        );
+
+        captcha =
+            replacement;
+    }
+}
+
 function renderCaptcha(
     message =
         ""
@@ -1777,10 +1722,169 @@ function renderCaptcha(
         return;
     }
 
-    captcha.classList.toggle(
-        "verified",
-        captchaVerified
-    );
+    if (
+        turnstileWidgetId !==
+        null
+    ) {
+        const status =
+            captcha.querySelector(
+                "#turnstileStatus"
+            );
+
+        if (
+            status &&
+            message
+        ) {
+            status.textContent =
+                message;
+        }
+
+        return;
+    }
+
+    captcha.innerHTML = `
+        <div
+            id="turnstileWidget"
+        ></div>
+
+        <div
+            id="turnstileStatus"
+        >
+            ${escapeHtml(
+                message ||
+                "Complete the Cloudflare verification to continue."
+            )}
+        </div>
+    `;
+}
+
+function loadTurnstileScript() {
+    if (
+        window.turnstile
+    ) {
+        return Promise.resolve();
+    }
+
+    if (
+        turnstileLoadPromise
+    ) {
+        return turnstileLoadPromise;
+    }
+
+    turnstileLoadPromise =
+        new Promise(
+            (
+                resolve,
+                reject
+            ) => {
+                const existing =
+                    document.querySelector(
+                        'script[data-venom-turnstile="1"]'
+                    );
+
+                if (
+                    existing
+                ) {
+                    const started =
+                        Date.now();
+
+                    const timer =
+                        setInterval(
+                            () => {
+                                if (
+                                    window.turnstile
+                                ) {
+                                    clearInterval(
+                                        timer
+                                    );
+
+                                    resolve();
+
+                                    return;
+                                }
+
+                                if (
+                                    Date.now() -
+                                        started >
+                                    10000
+                                ) {
+                                    clearInterval(
+                                        timer
+                                    );
+
+                                    reject(
+                                        new Error(
+                                            "Turnstile could not load."
+                                        )
+                                    );
+                                }
+                            },
+                            50
+                        );
+
+                    return;
+                }
+
+                const script =
+                    document.createElement(
+                        "script"
+                    );
+
+                script.src =
+                    "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+
+                script.async =
+                    true;
+
+                script.defer =
+                    true;
+
+                script.dataset.venomTurnstile =
+                    "1";
+
+                script.onload =
+                    () => {
+                        if (
+                            window.turnstile
+                        ) {
+                            resolve();
+                        } else {
+                            reject(
+                                new Error(
+                                    "Turnstile loaded without API."
+                                )
+                            );
+                        }
+                    };
+
+                script.onerror =
+                    () => {
+                        reject(
+                            new Error(
+                                "Turnstile could not load."
+                            )
+                        );
+                    };
+
+                document.head.appendChild(
+                    script
+                );
+            }
+        );
+
+    return turnstileLoadPromise;
+}
+
+async function renderTurnstile() {
+    prepareTurnstileContainer();
+
+    if (
+        !captcha
+    ) {
+        throw new Error(
+            "Turnstile container is missing."
+        );
+    }
 
     if (
         turnstileWidgetId !==
@@ -1789,31 +1893,141 @@ function renderCaptcha(
         return;
     }
 
-    captcha.innerHTML = `
-        <div
-            id="turnstileWidget"
-            style="
-                width: 100%;
-                min-height: 65px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            "
-        ></div>
+    renderCaptcha();
 
-        <div
-            id="turnstileStatus"
-            style="
-                margin-top: 7px;
-                color: #6c6c6c;
-                font-size: 9px;
-                text-align: center;
-            "
-        >${escapeHtml(
-            message ||
-            "Complete the security check to continue."
-        )}</div>
-    `;
+    await loadTurnstileScript();
+
+    const target =
+        captcha.querySelector(
+            "#turnstileWidget"
+        );
+
+    if (
+        !target
+    ) {
+        throw new Error(
+            "Turnstile target is missing."
+        );
+    }
+
+    turnstileWidgetId =
+        window.turnstile.render(
+            target,
+            {
+                sitekey:
+                    turnstileSiteKey,
+
+                theme:
+                    "dark",
+
+                size:
+                    "flexible",
+
+                callback:
+                    token => {
+                        turnstileToken =
+                            String(
+                                token ||
+                                ""
+                            );
+
+                        captchaVerified =
+                            Boolean(
+                                turnstileToken
+                            );
+
+                        const status =
+                            captcha.querySelector(
+                                "#turnstileStatus"
+                            );
+
+                        if (
+                            status
+                        ) {
+                            status.textContent =
+                                captchaVerified
+                                    ? "Cloudflare verification complete."
+                                    : "Complete the Cloudflare verification to continue.";
+                        }
+                    },
+
+                "expired-callback":
+                    () => {
+                        turnstileToken =
+                            "";
+
+                        captchaVerified =
+                            false;
+
+                        const status =
+                            captcha.querySelector(
+                                "#turnstileStatus"
+                            );
+
+                        if (
+                            status
+                        ) {
+                            status.textContent =
+                                "Verification expired. Complete it again.";
+                        }
+                    },
+
+                "timeout-callback":
+                    () => {
+                        turnstileToken =
+                            "";
+
+                        captchaVerified =
+                            false;
+                    },
+
+                "error-callback":
+                    errorCode => {
+                        console.error(
+                            "[VENOM TURNSTILE] widget error",
+                            errorCode
+                        );
+
+                        turnstileToken =
+                            "";
+
+                        captchaVerified =
+                            false;
+
+                        const status =
+                            captcha.querySelector(
+                                "#turnstileStatus"
+                            );
+
+                        if (
+                            status
+                        ) {
+                            status.textContent =
+                                "Cloudflare verification failed to load.";
+                        }
+                    }
+            }
+        );
+}
+
+function resetTurnstile() {
+    turnstileToken =
+        "";
+
+    captchaVerified =
+        false;
+
+    if (
+        turnstileWidgetId !==
+            null &&
+        window.turnstile
+    ) {
+        try {
+            window.turnstile.reset(
+                turnstileWidgetId
+            );
+        } catch {}
+    }
 }
 
 async function createSecureSession() {
@@ -2171,665 +2385,6 @@ function base64UrlToBytes(
     );
 }
 
-function prepareTurnstileContainer() {
-    if (
-        !captcha
-    ) {
-        return;
-    }
-
-    if (
-        captcha.tagName?.toLowerCase() ===
-        "button"
-    ) {
-        const replacement =
-            document.createElement(
-                "div"
-            );
-
-        replacement.id =
-            captcha.id;
-
-        replacement.className =
-            captcha.className;
-
-        replacement.style.cursor =
-            "default";
-
-        replacement.style.height =
-            "auto";
-
-        replacement.style.minHeight =
-            "86px";
-
-        replacement.style.padding =
-            "12px";
-
-        replacement.style.display =
-            "block";
-
-        captcha.replaceWith(
-            replacement
-        );
-
-        captcha =
-            replacement;
-    }
-}
-
-function loadTurnstileScript() {
-    if (
-        window.turnstile
-    ) {
-        return Promise.resolve();
-    }
-
-    if (
-        turnstileLoadPromise
-    ) {
-        return turnstileLoadPromise;
-    }
-
-    turnstileLoadPromise =
-        new Promise(
-            (resolve, reject) => {
-                const existing =
-                    document.querySelector(
-                        'script[data-venom-turnstile="1"]'
-                    );
-
-                if (
-                    existing
-                ) {
-                    const wait =
-                        setInterval(
-                            () => {
-                                if (
-                                    window.turnstile
-                                ) {
-                                    clearInterval(
-                                        wait
-                                    );
-
-                                    resolve();
-                                }
-                            },
-                            50
-                        );
-
-                    setTimeout(
-                        () => {
-                            clearInterval(
-                                wait
-                            );
-
-                            if (
-                                window.turnstile
-                            ) {
-                                resolve();
-                            } else {
-                                reject(
-                                    new Error(
-                                        "Turnstile could not load."
-                                    )
-                                );
-                            }
-                        },
-                        10000
-                    );
-
-                    return;
-                }
-
-                const script =
-                    document.createElement(
-                        "script"
-                    );
-
-                script.src =
-                    "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-
-                script.async =
-                    true;
-
-                script.defer =
-                    true;
-
-                script.dataset.venomTurnstile =
-                    "1";
-
-                script.onload =
-                    () => resolve();
-
-                script.onerror =
-                    () => reject(
-                        new Error(
-                            "Turnstile could not load."
-                        )
-                    );
-
-                document.head.appendChild(
-                    script
-                );
-            }
-        );
-
-    return turnstileLoadPromise;
-}
-
-async function renderTurnstile() {
-    prepareTurnstileContainer();
-
-    if (
-        !captcha
-    ) {
-        throw new Error(
-            "Turnstile container is missing."
-        );
-    }
-
-    if (
-        turnstileWidgetId !==
-        null
-    ) {
-        return;
-    }
-
-    renderCaptcha();
-
-    await loadTurnstileScript();
-
-    const target =
-        captcha.querySelector(
-            "#turnstileWidget"
-        );
-
-    if (
-        !target
-    ) {
-        throw new Error(
-            "Turnstile container is missing."
-        );
-    }
-
-    turnstileWidgetId =
-        window.turnstile.render(
-            target,
-            {
-                sitekey:
-                    turnstileSiteKey,
-
-                theme:
-                    "dark",
-
-                size:
-                    "flexible",
-
-                callback:
-                    token => {
-                        turnstileToken =
-                            String(
-                                token ||
-                                ""
-                            );
-
-                        captchaVerified =
-                            Boolean(
-                                turnstileToken
-                            );
-
-                        const status =
-                            captcha.querySelector(
-                                "#turnstileStatus"
-                            );
-
-                        if (
-                            status
-                        ) {
-                            status.textContent =
-                                captchaVerified
-                                    ? "Human verification complete."
-                                    : "Complete the security check to continue.";
-                        }
-                    },
-
-                "expired-callback":
-                    () => {
-                        turnstileToken =
-                            "";
-
-                        captchaVerified =
-                            false;
-
-                        const status =
-                            captcha.querySelector(
-                                "#turnstileStatus"
-                            );
-
-                        if (
-                            status
-                        ) {
-                            status.textContent =
-                                "Verification expired. Complete the check again.";
-                        }
-                    },
-
-                "error-callback":
-                    () => {
-                        turnstileToken =
-                            "";
-
-                        captchaVerified =
-                            false;
-
-                        const status =
-                            captcha.querySelector(
-                                "#turnstileStatus"
-                            );
-
-                        if (
-                            status
-                        ) {
-                            status.textContent =
-                                "Verification failed to load. Try again.";
-                        }
-                    }
-            }
-        );
-}
-
-function resetTurnstile() {
-    turnstileToken =
-        "";
-
-    captchaVerified =
-        false;
-
-    if (
-        turnstileWidgetId !==
-            null &&
-        window.turnstile
-    ) {
-        try {
-            window.turnstile.reset(
-                turnstileWidgetId
-            );
-        } catch {}
-    }
-}
-
-async function requireTurnstileToken() {
-    await renderTurnstile();
-
-    if (
-        !turnstileToken
-    ) {
-        throw new Error(
-            "Complete the human verification first."
-        );
-    }
-
-    return turnstileToken;
-}
-
-async function startCaptcha() {
-    await ensureSession();
-    await renderTurnstile();
-}
-
-async function verifyCaptcha() {
-    await renderTurnstile();
-
-    if (
-        turnstileToken
-    ) {
-        captchaVerified =
-            true;
-
-        return true;
-    }
-
-    throw new Error(
-        "Complete the Turnstile check first."
-    );
-}
-
-function captchaTelemetry() {
-    return {
-        webdriver:
-            navigator.webdriver ===
-            true,
-
-        visibilityChanges,
-
-        focusChanges,
-
-        screenWidth:
-            Number(
-                screen.width ||
-                0
-            ),
-
-        screenHeight:
-            Number(
-                screen.height ||
-                0
-            ),
-
-        pointer: {
-            samples:
-                pointerSamples.length,
-
-            distance:
-                pointerDistance,
-
-            speedVariance:
-                pointerSpeedVariance(),
-
-            directionChanges
-        },
-
-        typing: {
-            samples:
-                typingTimes.length,
-
-            variance:
-                typingVariance(),
-
-            constantRatio:
-                typingConstantRatio()
-        }
-    };
-}
-
-function pointerSpeedVariance() {
-    if (
-        pointerSamples.length <
-        2
-    ) {
-        return 0;
-    }
-
-    const speeds =
-        pointerSamples.map(
-            item =>
-                item.speed
-        );
-
-    const average =
-        speeds.reduce(
-            (
-                total,
-                value
-            ) =>
-                total +
-                value,
-            0
-        ) /
-        speeds.length;
-
-    return speeds.reduce(
-        (
-            total,
-            value
-        ) =>
-            total +
-            (
-                value -
-                average
-            ) ** 2,
-        0
-    ) /
-    speeds.length;
-}
-
-function typingVariance() {
-    if (
-        typingTimes.length <
-        2
-    ) {
-        return 0;
-    }
-
-    const average =
-        typingTimes.reduce(
-            (
-                total,
-                value
-            ) =>
-                total +
-                value,
-            0
-        ) /
-        typingTimes.length;
-
-    return typingTimes.reduce(
-        (
-            total,
-            value
-        ) =>
-            total +
-            (
-                value -
-                average
-            ) ** 2,
-        0
-    ) /
-    typingTimes.length;
-}
-
-function typingConstantRatio() {
-    if (
-        typingTimes.length <
-        2
-    ) {
-        return 0;
-    }
-
-    const values =
-        typingTimes.map(
-            value =>
-                Math.round(
-                    value /
-                    10
-                ) *
-                10
-        );
-
-    const counts =
-        new Map();
-
-    let highest =
-        0;
-
-    for (
-        const value
-        of values
-    ) {
-        const amount =
-            (
-                counts.get(
-                    value
-                ) ||
-                0
-            ) +
-            1;
-
-        counts.set(
-            value,
-            amount
-        );
-
-        highest =
-            Math.max(
-                highest,
-                amount
-            );
-    }
-
-    return highest /
-        values.length;
-}
-
-function trackTyping() {
-    const now =
-        performance.now();
-
-    if (
-        lastTypingTime >
-        0
-    ) {
-        const difference =
-            now -
-            lastTypingTime;
-
-        if (
-            difference >
-                0 &&
-            difference <
-                2000
-        ) {
-            typingTimes.push(
-                difference
-            );
-
-            if (
-                typingTimes.length >
-                40
-            ) {
-                typingTimes.shift();
-            }
-        }
-    }
-
-    lastTypingTime =
-        now;
-}
-
-function setupTelemetry() {
-    addEventListener(
-        "pointermove",
-        event => {
-            const now =
-                performance.now();
-
-            if (
-                previousPointer
-            ) {
-                const dx =
-                    event.clientX -
-                    previousPointer.x;
-
-                const dy =
-                    event.clientY -
-                    previousPointer.y;
-
-                const dt =
-                    Math.max(
-                        1,
-                        now -
-                        previousPointer.time
-                    );
-
-                const distance =
-                    Math.hypot(
-                        dx,
-                        dy
-                    );
-
-                pointerDistance +=
-                    distance;
-
-                const direction =
-                    Math.atan2(
-                        dy,
-                        dx
-                    );
-
-                if (
-                    previousDirection !==
-                    null
-                ) {
-                    let difference =
-                        Math.abs(
-                            direction -
-                            previousDirection
-                        );
-
-                    if (
-                        difference >
-                        Math.PI
-                    ) {
-                        difference =
-                            Math.PI *
-                            2 -
-                            difference;
-                    }
-
-                    if (
-                        difference >
-                        .6
-                    ) {
-                        directionChanges++;
-                    }
-                }
-
-                previousDirection =
-                    direction;
-
-                pointerSamples.push({
-                    speed:
-                        distance /
-                        dt
-                });
-
-                if (
-                    pointerSamples.length >
-                    50
-                ) {
-                    pointerSamples.shift();
-                }
-            }
-
-            previousPointer = {
-                x:
-                    event.clientX,
-
-                y:
-                    event.clientY,
-
-                time:
-                    now
-            };
-        },
-        {
-            passive:
-                true
-        }
-    );
-
-    document.addEventListener(
-        "visibilitychange",
-        () => {
-            visibilityChanges++;
-        }
-    );
-
-    addEventListener(
-        "focus",
-        () => {
-            focusChanges++;
-        }
-    );
-
-    addEventListener(
-        "blur",
-        () => {
-            focusChanges++;
-        }
-    );
-}
-
 function rememberLogin() {
     if (
         typeof window.venomRememberLogin ===
@@ -2982,10 +2537,11 @@ async function beginSignup() {
     }
 
     if (
-        !captchaVerified
+        !captchaVerified ||
+        !turnstileToken
     ) {
         throw new Error(
-            "Complete human verification first."
+            "Complete the Cloudflare verification first."
         );
     }
 
@@ -2999,8 +2555,7 @@ async function beginSignup() {
         session:
             sessionToken,
 
-        turnstileToken:
-            turnstileToken,
+        turnstileToken,
 
         remember:
             rememberLogin(),
@@ -3049,10 +2604,11 @@ async function beginLogin() {
     }
 
     if (
-        !captchaVerified
+        !captchaVerified ||
+        !turnstileToken
     ) {
         throw new Error(
-            "Complete human verification first."
+            "Complete the Cloudflare verification first."
         );
     }
 
@@ -3070,8 +2626,7 @@ async function beginLogin() {
             session:
                 sessionToken,
 
-            turnstileToken:
-                turnstileToken,
+            turnstileToken,
 
             remember:
                 rememberLogin(),
@@ -3105,6 +2660,8 @@ async function beginLogin() {
 
         session:
             sessionToken,
+
+        turnstileToken,
 
         remember:
             rememberLogin()
@@ -3224,7 +2781,7 @@ async function requestEmailCode(
             resetTurnstile();
 
             throw new Error(
-                "Human verification expired. Complete the check again."
+                "Cloudflare verification expired. Complete it again."
             );
         }
 
@@ -3477,8 +3034,7 @@ async function finishSignup() {
                             pending.session,
 
                         turnstileToken:
-                            pending.turnstileToken ||
-                            turnstileToken,
+                            pending.turnstileToken,
 
                         emailVerificationToken,
 
@@ -3560,7 +3116,7 @@ async function finishSignup() {
             resetTurnstile();
 
             throw new Error(
-                "Human verification expired. Submit the form again."
+                "Cloudflare verification expired. Submit the form again."
             );
         }
 
@@ -3640,7 +3196,7 @@ async function finishLogin(
             resetTurnstile();
 
             throw new Error(
-                "Human verification expired. Try again."
+                "Cloudflare verification expired. Try again."
             );
         }
 
@@ -3841,7 +3397,7 @@ discordAuth?.addEventListener(
     continueWithDiscord
 );
 
-form.addEventListener(
+form?.addEventListener(
     "submit",
     async event => {
         event.preventDefault();
@@ -3934,24 +3490,24 @@ window.addEventListener(
     }
 );
 
-render();
-
 prepareTurnstileContainer();
+
+render();
 
 createSecureSession()
     .then(
         () =>
-            startCaptcha()
+            renderTurnstile()
     )
     .catch(
         err => {
             console.error(
-                "[VENOM] session initialization failed",
+                "[VENOM] initialization failed",
                 err
             );
 
             renderCaptcha(
-                "Could not prepare verification."
+                "Could not prepare Cloudflare verification."
             );
         }
     );
