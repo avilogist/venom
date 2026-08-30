@@ -1,0 +1,2111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>Venom | Hall of Progress</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/venom.png"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            box-sizing:
+                border-box;
+        }
+
+        [hidden] {
+            display:
+                none !important;
+        }
+
+        html {
+            scroll-behavior:
+                smooth;
+        }
+
+        html,
+        body {
+            margin:
+                0;
+
+            min-height:
+                100%;
+
+            background:
+                #050505;
+
+            color:
+                #eee;
+
+            font-family:
+                Inter,
+                system-ui,
+                sans-serif;
+        }
+
+        body {
+            min-height:
+                100vh;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            overflow-x:
+                hidden;
+
+            background:
+                radial-gradient(
+                    circle at 42% -10%,
+                    rgba(215,40,40,.065),
+                    transparent 28%
+                ),
+                #050505;
+        }
+
+        button,
+        a {
+            font:
+                inherit;
+        }
+
+        .top {
+            height:
+                72px;
+
+            min-height:
+                72px;
+
+            border-bottom:
+                1px solid #171717;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            padding:
+                0 clamp(14px,3vw,30px);
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                50;
+
+            background:
+                rgba(5,5,5,.96);
+
+            backdrop-filter:
+                blur(14px);
+        }
+
+        .logoLink {
+            display:
+                flex;
+
+            align-items:
+                center;
+        }
+
+        .logo {
+            width:
+                clamp(
+                    148px,
+                    17vw,
+                    194px
+                );
+
+            height:
+                52px;
+
+            object-fit:
+                contain;
+
+            object-position:
+                left center;
+        }
+
+        .nav {
+            position:
+                absolute;
+
+            left:
+                50%;
+
+            transform:
+                translateX(-50%);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            height:
+                100%;
+
+            gap:
+                clamp(
+                    16px,
+                    2.4vw,
+                    30px
+                );
+        }
+
+        .tab {
+            height:
+                100%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            position:
+                relative;
+
+            color:
+                #8f8f8f;
+
+            font-size:
+                clamp(
+                    10px,
+                    1vw,
+                    13px
+                );
+
+            font-weight:
+                600;
+
+            letter-spacing:
+                .08em;
+
+            text-decoration:
+                none;
+
+            white-space:
+                nowrap;
+
+            transition:
+                color .18s;
+        }
+
+        .tab:hover,
+        .tab.on {
+            color:
+                #d72828;
+        }
+
+        .tab.on::after {
+            content:
+                "";
+
+            position:
+                absolute;
+
+            left:
+                0;
+
+            right:
+                0;
+
+            bottom:
+                20px;
+
+            height:
+                2px;
+
+            border-radius:
+                999px;
+
+            background:
+                #d72828;
+        }
+
+        .dashboardLink {
+            margin-left:
+                auto;
+
+            width:
+                35px;
+
+            height:
+                35px;
+
+            border:
+                1px solid #202020;
+
+            border-radius:
+                8px;
+
+            background:
+                #0c0c0c;
+
+            color:
+                #777;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            text-decoration:
+                none;
+
+            transition:
+                border-color .16s,
+                color .16s;
+        }
+
+        .dashboardLink:hover {
+            border-color:
+                #342020;
+
+            color:
+                #d72828;
+        }
+
+        .dashboardLink svg {
+            width:
+                16px;
+
+            height:
+                16px;
+        }
+
+        .shell {
+            width:
+                min(
+                    1180px,
+                    calc(
+                        100% - 30px
+                    )
+                );
+
+            margin:
+                0 auto;
+
+            padding:
+                52px 0 100px;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                minmax(
+                    0,
+                    1fr
+                )
+                260px;
+
+            gap:
+                clamp(
+                    42px,
+                    7vw,
+                    90px
+                );
+
+            align-items:
+                start;
+        }
+
+        .content {
+            min-width:
+                0;
+        }
+
+        .hero {
+            padding-bottom:
+                42px;
+
+            border-bottom:
+                1px solid #171717;
+        }
+
+        .eyebrow {
+            color:
+                #d72828;
+
+            font-size:
+                9px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                .14em;
+
+            text-transform:
+                uppercase;
+        }
+
+        h1 {
+            margin:
+                12px 0 0;
+
+            color:
+                #eee;
+
+            font-size:
+                clamp(
+                    31px,
+                    5vw,
+                    50px
+                );
+
+            line-height:
+                1.04;
+
+            letter-spacing:
+                -.045em;
+
+            font-weight:
+                600;
+        }
+
+        .heroText {
+            max-width:
+                650px;
+
+            margin:
+                17px 0 0;
+
+            color:
+                #707070;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.85;
+        }
+
+        .heroMeta {
+            margin-top:
+                20px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                18px;
+
+            color:
+                #4d4d4d;
+
+            font-family:
+                "JetBrains Mono",
+                monospace;
+
+            font-size:
+                8px;
+
+            letter-spacing:
+                .035em;
+        }
+
+        .chapter {
+            padding:
+                56px 0 0;
+
+            scroll-margin-top:
+                105px;
+        }
+
+        .chapter + .chapter {
+            margin-top:
+                10px;
+        }
+
+        .chapterNumber {
+            color:
+                #3e3e3e;
+
+            font-family:
+                "JetBrains Mono",
+                monospace;
+
+            font-size:
+                8px;
+
+            letter-spacing:
+                .1em;
+        }
+
+        .chapter h2 {
+            margin:
+                8px 0 0;
+
+            color:
+                #dedede;
+
+            font-size:
+                24px;
+
+            letter-spacing:
+                -.03em;
+
+            font-weight:
+                600;
+        }
+
+        .chapterIntro {
+            max-width:
+                690px;
+
+            margin:
+                11px 0 0;
+
+            color:
+                #6d6d6d;
+
+            font-size:
+                10px;
+
+            line-height:
+                1.85;
+        }
+
+        .topic {
+            margin-top:
+                28px;
+
+            padding-top:
+                26px;
+
+            border-top:
+                1px solid #161616;
+
+            scroll-margin-top:
+                105px;
+        }
+
+        .topicHead {
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                9px;
+        }
+
+        .topicIcon {
+            width:
+                30px;
+
+            height:
+                30px;
+
+            border:
+                1px solid #222;
+
+            border-radius:
+                7px;
+
+            background:
+                #0c0c0c;
+
+            color:
+                #8c8c8c;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+        }
+
+        .topicIcon svg {
+            width:
+                14px;
+
+            height:
+                14px;
+        }
+
+        .topic h3 {
+            margin:
+                0;
+
+            color:
+                #d0d0d0;
+
+            font-size:
+                14px;
+
+            font-weight:
+                600;
+        }
+
+        .topic p {
+            max-width:
+                700px;
+
+            margin:
+                12px 0 0;
+
+            color:
+                #727272;
+
+            font-size:
+                10px;
+
+            line-height:
+                1.9;
+        }
+
+        .purpose {
+            margin-top:
+                14px;
+
+            padding-left:
+                13px;
+
+            border-left:
+                1px solid #3c2020;
+
+            color:
+                #909090;
+
+            font-size:
+                9px;
+
+            line-height:
+                1.8;
+        }
+
+        .purpose strong {
+            color:
+                #b8b8b8;
+
+            font-weight:
+                600;
+        }
+
+        .example {
+            margin-top:
+                17px;
+
+            border:
+                1px solid #1e1e1e;
+
+            border-radius:
+                9px;
+
+            overflow:
+                hidden;
+
+            background:
+                #080808;
+        }
+
+        .exampleHead {
+            height:
+                34px;
+
+            padding:
+                0 11px;
+
+            border-bottom:
+                1px solid #1a1a1a;
+
+            color:
+                #555;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            font-family:
+                "JetBrains Mono",
+                monospace;
+
+            font-size:
+                8px;
+        }
+
+        pre {
+            margin:
+                0;
+
+            padding:
+                14px;
+
+            overflow-x:
+                auto;
+
+            color:
+                #9d9d9d;
+
+            font-family:
+                "JetBrains Mono",
+                ui-monospace,
+                monospace;
+
+            font-size:
+                9px;
+
+            line-height:
+                1.75;
+
+            tab-size:
+                4;
+
+            scrollbar-width:
+                thin;
+
+            scrollbar-color:
+                #242424 #080808;
+        }
+
+        code .key {
+            color:
+                #b6b6b6;
+        }
+
+        code .value {
+            color:
+                #956d6d;
+        }
+
+        code .comment {
+            color:
+                #454545;
+        }
+
+        .callout {
+            margin-top:
+                19px;
+
+            padding:
+                13px 14px;
+
+            border:
+                1px solid #201c1c;
+
+            border-radius:
+                8px;
+
+            background:
+                #090808;
+
+            color:
+                #6d6d6d;
+
+            font-size:
+                9px;
+
+            line-height:
+                1.75;
+        }
+
+        .callout strong {
+            color:
+                #a7a7a7;
+        }
+
+        .rail {
+            position:
+                sticky;
+
+            top:
+                95px;
+
+            height:
+                calc(
+                    100vh - 120px
+                );
+
+            min-height:
+                300px;
+        }
+
+        .railLabel {
+            margin-bottom:
+                12px;
+
+            color:
+                #3f3f3f;
+
+            font-family:
+                "JetBrains Mono",
+                monospace;
+
+            font-size:
+                8px;
+
+            font-weight:
+                500;
+
+            letter-spacing:
+                .12em;
+
+            text-transform:
+                uppercase;
+        }
+
+        .railScroll {
+            height:
+                calc(
+                    100% - 26px
+                );
+
+            padding-right:
+                10px;
+
+            overflow-y:
+                auto;
+
+            scrollbar-width:
+                thin;
+
+            scrollbar-color:
+                #292929 transparent;
+        }
+
+        .railScroll::-webkit-scrollbar {
+            width:
+                4px;
+        }
+
+        .railScroll::-webkit-scrollbar-track {
+            background:
+                transparent;
+        }
+
+        .railScroll::-webkit-scrollbar-thumb {
+            background:
+                #292929;
+
+            border-radius:
+                99px;
+        }
+
+        .treeSection {
+            padding:
+                3px 0 15px;
+        }
+
+        .sectionTitle {
+            color:
+                #8b8b8b;
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                .09em;
+        }
+
+        .tree {
+            margin-top:
+                9px;
+        }
+
+        .branch {
+            position:
+                relative;
+        }
+
+        .branch + .branch {
+            margin-top:
+                2px;
+        }
+
+        .branchToggle {
+            width:
+                100%;
+
+            height:
+                31px;
+
+            padding:
+                0 4px;
+
+            border:
+                0;
+
+            background:
+                transparent;
+
+            color:
+                #666;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                6px;
+
+            cursor:
+                pointer;
+
+            text-align:
+                left;
+
+            font-size:
+                9px;
+
+            font-weight:
+                600;
+
+            transition:
+                color .15s;
+        }
+
+        .branchToggle:hover {
+            color:
+                #aaa;
+        }
+
+        .branchToggle svg {
+            width:
+                12px;
+
+            height:
+                12px;
+
+            transition:
+                transform .16s;
+        }
+
+        .branch.open >
+        .branchToggle svg {
+            transform:
+                rotate(
+                    90deg
+                );
+        }
+
+        .children {
+            max-height:
+                0;
+
+            margin-left:
+                8px;
+
+            padding-left:
+                10px;
+
+            border-left:
+                1px solid #191919;
+
+            overflow:
+                hidden;
+
+            opacity:
+                .55;
+
+            transition:
+                max-height .22s ease,
+                opacity .18s ease;
+        }
+
+        .branch.open >
+        .children {
+            max-height:
+                600px;
+
+            opacity:
+                1;
+        }
+
+        .children .branchToggle {
+            height:
+                28px;
+
+            font-size:
+                8px;
+        }
+
+        .treeLink {
+            min-height:
+                28px;
+
+            padding:
+                6px 4px;
+
+            color:
+                #555;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            text-decoration:
+                none;
+
+            font-size:
+                8px;
+
+            line-height:
+                1.4;
+
+            transition:
+                color .15s,
+                transform .15s;
+        }
+
+        .treeLink:hover {
+            color:
+                #aaa;
+
+            transform:
+                translateX(
+                    2px
+                );
+        }
+
+        .treeLink.active {
+            color:
+                #d44a4a;
+        }
+
+        .treeLink.active::before {
+            content:
+                "";
+
+            width:
+                3px;
+
+            height:
+                3px;
+
+            margin-right:
+                6px;
+
+            border-radius:
+                50%;
+
+            background:
+                currentColor;
+        }
+
+        .mobileTreeButton {
+            display:
+                none;
+        }
+
+        .foot {
+            min-height:
+                112px;
+
+            margin-top:
+                auto;
+
+            border-top:
+                1px solid #171717;
+
+            padding:
+                16px clamp(14px,3vw,30px);
+
+            display:
+                grid;
+
+            grid-template-columns:
+                minmax(170px,1fr)
+                auto
+                minmax(170px,1fr);
+
+            align-items:
+                start;
+
+            gap:
+                28px;
+
+            color:
+                #666;
+        }
+
+        .fbrand {
+            position:
+                relative;
+
+            width:
+                fit-content;
+
+            padding-top:
+                7px;
+        }
+
+        .flogo {
+            width:
+                clamp(158px,16vw,190px);
+
+            height:
+                52px;
+
+            object-fit:
+                contain;
+
+            object-position:
+                left center;
+
+            filter:
+                grayscale(1);
+
+            opacity:
+                .38;
+        }
+
+        .copy {
+            position:
+                absolute;
+
+            top:
+                3px;
+
+            right:
+                -21px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                2px;
+
+            color:
+                #666;
+
+            font-size:
+                9px;
+
+            font-weight:
+                600;
+        }
+
+        .fcols {
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            gap:
+                clamp(34px,7vw,76px);
+        }
+
+        .fcol {
+            min-width:
+                100px;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap:
+                8px;
+        }
+
+        .ftitle {
+            margin-bottom:
+                3px;
+
+            color:
+                #b9b9b9;
+
+            font-size:
+                10px;
+
+            font-weight:
+                600;
+        }
+
+        .fcol a {
+            color:
+                #666;
+
+            text-decoration:
+                none;
+
+            font-size:
+                10px;
+        }
+
+        .fcol a:hover {
+            color:
+                #d72828;
+        }
+
+        @media (
+            max-width:
+            850px
+        ) {
+            .shell {
+                grid-template-columns:
+                    1fr;
+
+                gap:
+                    0;
+            }
+
+            .rail {
+                position:
+                    fixed;
+
+                top:
+                    64px;
+
+                right:
+                    0;
+
+                width:
+                    min(
+                        300px,
+                        calc(
+                            100vw - 30px
+                        )
+                    );
+
+                height:
+                    calc(
+                        100vh - 64px
+                    );
+
+                padding:
+                    18px;
+
+                z-index:
+                    45;
+
+                border-left:
+                    1px solid #1a1a1a;
+
+                background:
+                    rgba(7,7,7,.98);
+
+                transform:
+                    translateX(
+                        105%
+                    );
+
+                transition:
+                    transform .2s;
+            }
+
+            .rail.open {
+                transform:
+                    none;
+            }
+
+            .mobileTreeButton {
+                display:
+                    grid;
+
+                position:
+                    fixed;
+
+                right:
+                    14px;
+
+                bottom:
+                    16px;
+
+                z-index:
+                    47;
+
+                width:
+                    40px;
+
+                height:
+                    40px;
+
+                border:
+                    1px solid #292929;
+
+                border-radius:
+                    9px;
+
+                background:
+                    #0d0d0d;
+
+                color:
+                    #888;
+
+                place-items:
+                    center;
+
+                cursor:
+                    pointer;
+            }
+
+            .mobileTreeButton svg {
+                width:
+                    17px;
+
+                height:
+                    17px;
+            }
+        }
+
+        @media (
+            max-width:
+            640px
+        ) {
+            .top {
+                height:
+                    64px;
+
+                min-height:
+                    64px;
+
+                padding:
+                    0 10px;
+            }
+
+            .logo {
+                width:
+                    112px;
+
+                height:
+                    44px;
+            }
+
+            .nav {
+                gap:
+                    10px;
+            }
+
+            .tab {
+                font-size:
+                    8px;
+
+                letter-spacing:
+                    .04em;
+            }
+
+            .tab.on::after {
+                bottom:
+                    17px;
+            }
+
+            .dashboardLink {
+                width:
+                    32px;
+
+                height:
+                    32px;
+            }
+
+            .shell {
+                width:
+                    calc(
+                        100% - 22px
+                    );
+
+                padding-top:
+                    38px;
+            }
+
+            .foot {
+                grid-template-columns:
+                    1fr;
+
+                gap:
+                    22px;
+            }
+
+            .fcols {
+                justify-content:
+                    flex-start;
+
+                flex-wrap:
+                    wrap;
+
+                gap:
+                    34px;
+            }
+
+            .fspace {
+                display:
+                    none;
+            }
+        }
+
+        @media (
+            max-width:
+            500px
+        ) {
+            .nav .productsTab {
+                display:
+                    none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <a
+            class="logoLink"
+            href="index.html"
+            aria-label="Venom home"
+        >
+            <img
+                class="logo"
+                src="assets/logo.png"
+                alt="Venom"
+            >
+        </a>
+
+        <nav class="nav">
+            <a
+                class="tab"
+                href="index.html"
+            >
+                Home
+            </a>
+
+            <a
+                class="tab productsTab"
+                href="products.html"
+            >
+                Products
+            </a>
+
+            <a
+                class="tab on"
+                href="hop.html"
+            >
+                HOP
+            </a>
+
+            <a
+                class="tab"
+                href="about.html"
+            >
+                About
+            </a>
+        </nav>
+
+        <a
+            class="dashboardLink"
+            href="dashboard.html"
+            aria-label="Dashboard"
+            title="Dashboard"
+        >
+            <i data-lucide="layout-dashboard"></i>
+        </a>
+    </header>
+
+    <main class="shell">
+        <article class="content">
+            <section class="hero">
+                <div class="eyebrow">
+                    Hall of Progress
+                </div>
+
+                <h1>
+                    How Venom is built.
+                </h1>
+
+                <p class="heroText">
+                    HOP documents the systems behind Venom, what they
+                    do, why they exist, and how the project has changed
+                    while being built. It is intended to be technical
+                    enough to explain the architecture without turning
+                    into an API reference.
+                </p>
+
+                <div class="heroMeta">
+                    <span>VENOM / HOP</span>
+                    <span>WEB / 01</span>
+                </div>
+            </section>
+
+            <section
+                class="chapter"
+                id="web"
+            >
+                <div class="chapterNumber">
+                    SECTION 01
+                </div>
+
+                <h2>
+                    Web
+                </h2>
+
+                <p class="chapterIntro">
+                    The web platform is more than a landing page. It is
+                    the account, community, administration, authentication,
+                    and licensing control plane around Venom.
+                </p>
+
+                <section
+                    class="topic"
+                    id="features-forum"
+                >
+                    <div class="topicHead">
+                        <div class="topicIcon">
+                            <i data-lucide="messages-square"></i>
+                        </div>
+
+                        <h3>
+                            Forum
+                        </h3>
+                    </div>
+
+                    <p>
+                        The forum gives Venom a first-party place for
+                        announcements and community discussion instead of
+                        requiring every update to live only inside Discord.
+                        Posts can carry markdown, embedded images, likes,
+                        comments, author identity, and Venom roles.
+                    </p>
+
+                    <div class="purpose">
+                        <strong>Purpose:</strong>
+                        keep important project information attached to a
+                        Venom account and available even when a user is
+                        not actively inside the Discord server.
+                    </div>
+
+                    <div class="callout">
+                        <strong>Administration:</strong>
+                        posting is currently controlled by admins, while
+                        comment permissions can be configured per post.
+                    </div>
+                </section>
+
+                <section
+                    class="topic"
+                    id="features-dashboard"
+                >
+                    <div class="topicHead">
+                        <div class="topicIcon">
+                            <i data-lucide="layout-dashboard"></i>
+                        </div>
+
+                        <h3>
+                            Dashboard
+                        </h3>
+                    </div>
+
+                    <p>
+                        The dashboard is the authenticated control centre
+                        for a Venom account. It combines profile identity,
+                        Discord linking, license state, account security,
+                        password controls, usage information, forum access,
+                        and admin entry points when the account has the
+                        required role.
+                    </p>
+
+                    <div class="purpose">
+                        <strong>Purpose:</strong>
+                        provide one predictable place where users can see
+                        the state of their account rather than spreading
+                        sensitive controls across unrelated pages.
+                    </div>
+                </section>
+
+                <section
+                    class="topic"
+                    id="security-pepper"
+                >
+                    <div class="topicHead">
+                        <div class="topicIcon">
+                            <i data-lucide="key-round"></i>
+                        </div>
+
+                        <h3>
+                            Pepper
+                        </h3>
+                    </div>
+
+                    <p>
+                        A password pepper is server-side secret material
+                        that is combined with the password before the
+                        expensive password derivation step. Unlike a salt,
+                        the pepper is not stored beside each user's
+                        password record.
+                    </p>
+
+                    <p>
+                        Venom uses a server-side password pepper before
+                        PBKDF2. This means a database-only compromise does
+                        not give an attacker every input required to test
+                        password guesses against the stored verifier.
+                    </p>
+
+                    <div class="purpose">
+                        <strong>Why:</strong>
+                        database records and application secrets have
+                        different compromise boundaries. Keeping part of
+                        the password derivation secret outside D1 adds
+                        another boundary an attacker has to cross.
+                    </div>
+
+                    <div class="example">
+                        <div class="exampleHead">
+                            conceptual flow
+                        </div>
+
+                        <pre><code><span class="key">password</span> = <span class="value">"user supplied password"</span>
+<span class="key">peppered</span> = HMAC_SHA256(password, PASSWORD_PEPPER)
+<span class="key">verifier</span> = PBKDF2(peppered, accountSalt, iterations)
+
+<span class="comment">// PASSWORD_PEPPER stays in server secrets</span></code></pre>
+                    </div>
+                </section>
+
+                <section
+                    class="topic"
+                    id="security-salt"
+                >
+                    <div class="topicHead">
+                        <div class="topicIcon">
+                            <i data-lucide="shaker"></i>
+                        </div>
+
+                        <h3>
+                            Salt
+                        </h3>
+                    </div>
+
+                    <p>
+                        Every password account gets its own random salt.
+                        The salt does not need to be secret. Its job is to
+                        make identical passwords produce different stored
+                        password verifiers.
+                    </p>
+
+                    <p>
+                        Venom currently generates a random 32-byte salt per
+                        password account before running password derivation.
+                        The salt is stored with the resulting password
+                        verifier so the same derivation can be performed
+                        during login.
+                    </p>
+
+                    <div class="purpose">
+                        <strong>Why:</strong>
+                        without unique salts, two users who choose the same
+                        password can end up with matching password hashes,
+                        and precomputed cracking tables become much more
+                        useful.
+                    </div>
+
+                    <div class="example">
+                        <div class="exampleHead">
+                            two users, same password
+                        </div>
+
+                        <pre><code>User A
+<span class="key">password</span> = <span class="value">samePassword</span>
+<span class="key">salt</span> = <span class="value">random_A</span>
+<span class="key">result</span> = <span class="value">7d8a...</span>
+
+User B
+<span class="key">password</span> = <span class="value">samePassword</span>
+<span class="key">salt</span> = <span class="value">random_B</span>
+<span class="key">result</span> = <span class="value">b921...</span></code></pre>
+                    </div>
+                </section>
+
+                <section
+                    class="topic"
+                    id="security-hashing"
+                >
+                    <div class="topicHead">
+                        <div class="topicIcon">
+                            <i data-lucide="fingerprint"></i>
+                        </div>
+
+                        <h3>
+                            Hashing
+                        </h3>
+                    </div>
+
+                    <p>
+                        Hashing is used when Venom needs to compare a value
+                        without needing to recover the original value later.
+                        Different jobs use different constructions rather
+                        than treating one hash function as a universal
+                        solution.
+                    </p>
+
+                    <p>
+                        Authentication session tokens are reduced to
+                        SHA-512 hashes before storage, meaning D1 does not
+                        need the usable bearer token. Lookup identifiers
+                        such as emails and Discord IDs use keyed HMAC
+                        lookups so common values cannot simply be guessed
+                        and hashed offline.
+                    </p>
+
+                    <div class="purpose">
+                        <strong>Why:</strong>
+                        if the application only has to answer
+                        "does this value match?", storing a recoverable
+                        plaintext copy increases exposure for no benefit.
+                    </div>
+
+                    <div class="example">
+                        <div class="exampleHead">
+                            session storage
+                        </div>
+
+                        <pre><code><span class="key">clientToken</span> = secureRandom(48)
+<span class="key">storedValue</span> = SHA512(clientToken)
+
+request Authorization:
+Bearer clientToken
+
+server:
+SHA512(clientToken) == storedValue</code></pre>
+                    </div>
+                </section>
+
+                <section
+                    class="topic"
+                    id="security-encryption"
+                >
+                    <div class="topicHead">
+                        <div class="topicIcon">
+                            <i data-lucide="lock-keyhole"></i>
+                        </div>
+
+                        <h3>
+                            Encryption
+                        </h3>
+                    </div>
+
+                    <p>
+                        Encryption is used when Venom genuinely needs to
+                        recover a value again. Discord IDs, Discord names,
+                        avatars, display/profile information, and other
+                        sensitive recoverable values are encrypted before
+                        storage using authenticated encryption.
+                    </p>
+
+                    <p>
+                        The current profile encryption path derives an
+                        AES-GCM key from the profile secret and uses a
+                        random 12-byte IV for each encrypted value. The IV
+                        is stored alongside the ciphertext because it is
+                        required for decryption but does not itself need to
+                        be secret.
+                    </p>
+
+                    <div class="purpose">
+                        <strong>Why:</strong>
+                        hashing would prevent Venom from ever using the
+                        original Discord ID or avatar again, while plaintext
+                        storage exposes more information than necessary.
+                        Encryption fits data that needs to be recoverable.
+                    </div>
+
+                    <div class="example">
+                        <div class="exampleHead">
+                            encrypted profile value
+                        </div>
+
+                        <pre><code><span class="key">key</span> = SHA256(PROFILE_SECRET)
+<span class="key">iv</span> = secureRandom(12)
+<span class="key">ciphertext</span> = AES_GCM_ENCRYPT(value, key, iv)
+
+stored =
+base64url(iv + ciphertext)</code></pre>
+                    </div>
+
+                    <div class="callout">
+                        <strong>Important distinction:</strong>
+                        passwords are not encrypted. Passwords are
+                        one-way derived. Encryption is reserved for
+                        information Venom must be able to recover.
+                    </div>
+                </section>
+            </section>
+        </article>
+
+        <aside
+            class="rail"
+            id="rail"
+        >
+            <div class="railLabel">
+                Sections
+            </div>
+
+            <div class="railScroll">
+                <div class="treeSection">
+                    <div class="sectionTitle">
+                        WEB
+                    </div>
+
+                    <div class="tree">
+                        <div class="branch open">
+                            <button
+                                class="branchToggle"
+                                type="button"
+                            >
+                                <i data-lucide="chevron-right"></i>
+
+                                <span>
+                                    Features
+                                </span>
+                            </button>
+
+                            <div class="children">
+                                <a
+                                    class="treeLink"
+                                    href="#features-forum"
+                                >
+                                    Forum
+                                </a>
+
+                                <a
+                                    class="treeLink"
+                                    href="#features-dashboard"
+                                >
+                                    Dashboard
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="branch open">
+                            <button
+                                class="branchToggle"
+                                type="button"
+                            >
+                                <i data-lucide="chevron-right"></i>
+
+                                <span>
+                                    Security
+                                </span>
+                            </button>
+
+                            <div class="children">
+                                <a
+                                    class="treeLink"
+                                    href="#security-pepper"
+                                >
+                                    Pepper
+                                </a>
+
+                                <a
+                                    class="treeLink"
+                                    href="#security-salt"
+                                >
+                                    Salt
+                                </a>
+
+                                <a
+                                    class="treeLink"
+                                    href="#security-hashing"
+                                >
+                                    Hashing
+                                </a>
+
+                                <div class="branch">
+                                    <button
+                                        class="branchToggle"
+                                        type="button"
+                                    >
+                                        <i data-lucide="chevron-right"></i>
+
+                                        <span>
+                                            Encryption
+                                        </span>
+                                    </button>
+
+                                    <div class="children">
+                                        <a
+                                            class="treeLink"
+                                            href="#security-encryption"
+                                        >
+                                            AES-GCM
+                                        </a>
+
+                                        <a
+                                            class="treeLink"
+                                            href="#security-encryption"
+                                        >
+                                            When we encrypt
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <button
+        class="mobileTreeButton"
+        id="mobileTreeButton"
+        type="button"
+        aria-label="Open section navigation"
+    >
+        <i data-lucide="list-tree"></i>
+    </button>
+
+    <footer
+        class="foot"
+        id="footer"
+    ></footer>
+
+    <script src="footer.js"></script>
+    <script src="cookie.js"></script>
+
+    <script>
+        const rail =
+            document.querySelector(
+                "#rail"
+            );
+
+        const mobileTreeButton =
+            document.querySelector(
+                "#mobileTreeButton"
+            );
+
+        const branches =
+            document.querySelectorAll(
+                ".branch"
+            );
+
+        const treeLinks =
+            [
+                ...document.querySelectorAll(
+                    ".treeLink"
+                )
+            ];
+
+        branches.forEach(
+            branch => {
+                const toggle =
+                    branch.querySelector(
+                        ":scope > .branchToggle"
+                    );
+
+                if (
+                    !toggle
+                ) {
+                    return;
+                }
+
+                toggle.addEventListener(
+                    "click",
+                    event => {
+                        event.stopPropagation();
+
+                        branch.classList.toggle(
+                            "open"
+                        );
+                    }
+                );
+            }
+        );
+
+        mobileTreeButton
+            ?.addEventListener(
+                "click",
+                event => {
+                    event.stopPropagation();
+
+                    rail
+                        ?.classList
+                        .toggle(
+                            "open"
+                        );
+                }
+            );
+
+        document.addEventListener(
+            "click",
+            event => {
+                if (
+                    innerWidth >
+                    850
+                ) {
+                    return;
+                }
+
+                if (
+                    rail?.contains(
+                        event.target
+                    ) ||
+                    mobileTreeButton?.contains(
+                        event.target
+                    )
+                ) {
+                    return;
+                }
+
+                rail
+                    ?.classList
+                    .remove(
+                        "open"
+                    );
+            }
+        );
+
+        treeLinks.forEach(
+            link => {
+                link.addEventListener(
+                    "click",
+                    () => {
+                        if (
+                            innerWidth <=
+                            850
+                        ) {
+                            rail
+                                ?.classList
+                                .remove(
+                                    "open"
+                                );
+                        }
+                    }
+                );
+            }
+        );
+
+        const targets =
+            treeLinks
+                .map(
+                    link => {
+                        const href =
+                            link.getAttribute(
+                                "href"
+                            );
+
+                        if (
+                            !href ||
+                            !href.startsWith(
+                                "#"
+                            )
+                        ) {
+                            return null;
+                        }
+
+                        return document.querySelector(
+                            href
+                        );
+                    }
+                )
+                .filter(
+                    Boolean
+                );
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+                    const visible =
+                        entries
+                            .filter(
+                                entry =>
+                                    entry.isIntersecting
+                            )
+                            .sort(
+                                (
+                                    a,
+                                    b
+                                ) =>
+                                    a.boundingClientRect.top -
+                                    b.boundingClientRect.top
+                            );
+
+                    if (
+                        !visible.length
+                    ) {
+                        return;
+                    }
+
+                    const id =
+                        visible[0]
+                            .target
+                            .id;
+
+                    treeLinks.forEach(
+                        link => {
+                            link.classList.toggle(
+                                "active",
+                                link.getAttribute(
+                                    "href"
+                                ) ===
+                                `#${id}`
+                            );
+                        }
+                    );
+                },
+                {
+                    rootMargin:
+                        "-18% 0px -68% 0px",
+
+                    threshold:
+                        0
+                }
+            );
+
+        targets.forEach(
+            target =>
+                observer.observe(
+                    target
+                )
+        );
+
+        if (
+            window.lucide
+        ) {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

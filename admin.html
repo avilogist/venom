@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>Venom | Admin</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/venom.png"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: #050505;
+            color: #eee;
+            font-family: Inter, system-ui, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 15% -5%,
+                    rgba(213,40,40,.09),
+                    transparent 32%
+                ),
+                #050505;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        .top {
+            height: 70px;
+            padding: 0 clamp(15px,3vw,30px);
+            border-bottom: 1px solid #171717;
+            background: rgba(5,5,5,.94);
+            backdrop-filter: blur(16px);
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .logo {
+            width: clamp(145px,16vw,190px);
+            height: 50px;
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        .nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: clamp(15px,2.4vw,30px);
+        }
+
+        .nav a {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            color: #777;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .07em;
+            position: relative;
+        }
+
+        .nav a:hover,
+        .nav a.on {
+            color: #d92d2d;
+        }
+
+        .nav a.on::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 19px;
+            height: 2px;
+            border-radius: 999px;
+            background: #d92d2d;
+        }
+
+        .back {
+            margin-left: auto;
+            width: 36px;
+            height: 36px;
+            border: 1px solid #202020;
+            border-radius: 9px;
+            color: #888;
+            background: #0d0d0d;
+            display: grid;
+            place-items: center;
+            text-decoration: none;
+        }
+
+        .back svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .shell {
+            width:
+                min(
+                    1220px,
+                    calc(100% - 28px)
+                );
+            margin: 0 auto;
+            padding: 32px 0 80px;
+        }
+
+        .hero {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(24px,3vw,34px);
+            font-weight: 600;
+            letter-spacing: -.035em;
+        }
+
+        .hero p {
+            margin: 7px 0 0;
+            color: #666;
+            font-size: 11px;
+        }
+
+        .adminIdentity {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            border-radius: 50%;
+            border: 1px solid #292929;
+            background: #111;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            color: #666;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge {
+            width: 15px;
+            height: 15px;
+            object-fit: contain;
+            vertical-align: middle;
+        }
+
+        .nameLine {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #ddd;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .sub {
+            margin-top: 3px;
+            color: #555;
+            font-size: 9px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns:
+                repeat(
+                    6,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+            gap: 10px;
+        }
+
+        .card {
+            border: 1px solid #1c1c1c;
+            border-radius: 13px;
+            background:
+                radial-gradient(
+                    circle at 8% 0%,
+                    rgba(255,255,255,.03),
+                    transparent 31%
+                ),
+                #0b0b0b;
+            box-shadow:
+                inset 1px 1px 0 rgba(255,255,255,.02),
+                0 14px 42px rgba(0,0,0,.2);
+        }
+
+        .stat {
+            padding: 14px;
+            min-height: 96px;
+        }
+
+        .statLabel {
+            color: #5e5e5e;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+        }
+
+        .statValue {
+            margin-top: 12px;
+            color: #e2e2e2;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .layout {
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns:
+                minmax(
+                    0,
+                    1.25fr
+                )
+                minmax(
+                    320px,
+                    .75fr
+                );
+            gap: 12px;
+            align-items: start;
+        }
+
+        .panel {
+            padding: 16px;
+        }
+
+        .panelTitle {
+            color: #ddd;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .panelText {
+            margin-top: 4px;
+            color: #565656;
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        .searchRow {
+            margin-top: 13px;
+            display: grid;
+            grid-template-columns:
+                1fr auto;
+            gap: 8px;
+        }
+
+        .input,
+        .select,
+        .textarea {
+            width: 100%;
+            border: 1px solid #242424;
+            border-radius: 8px;
+            background: #080808;
+            color: #ddd;
+            outline: none;
+        }
+
+        .input,
+        .select {
+            height: 39px;
+            padding: 0 10px;
+        }
+
+        .textarea {
+            min-height: 80px;
+            padding: 9px;
+            resize: vertical;
+        }
+
+        .input:focus,
+        .select:focus,
+        .textarea:focus {
+            border-color: #5f2929;
+            box-shadow:
+                0 0 0 3px rgba(215,40,40,.05);
+        }
+
+        .btn {
+            min-height: 39px;
+            padding: 0 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid #292929;
+            background: #131313;
+            color: #a7a7a7;
+            font-size: 9px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        .btn.primary {
+            border-color: #a82a2a;
+            background:
+                linear-gradient(
+                    145deg,
+                    #df4141,
+                    #ba2525
+                );
+            color: #fff;
+            box-shadow:
+                0 3px 0 #792020;
+        }
+
+        .btn.danger {
+            color: #d16b6b;
+            border-color: #512424;
+            background: #170d0d;
+        }
+
+        .users {
+            margin-top: 12px;
+            display: grid;
+            gap: 7px;
+            max-height: 650px;
+            overflow: auto;
+        }
+
+        .user {
+            width: 100%;
+            border: 1px solid #1e1e1e;
+            border-radius: 9px;
+            background: transparent;
+            padding: 9px;
+            display: grid;
+            grid-template-columns:
+                34px 1fr auto;
+            gap: 9px;
+            align-items: center;
+            color: inherit;
+            text-align: left;
+            cursor: pointer;
+            transition:
+                border-color .14s,
+                color .14s,
+                transform .14s;
+        }
+
+        .user:hover {
+            border-color: #303030;
+            background: transparent;
+        }
+
+        .user.on {
+            border-color: #484848;
+            background: transparent;
+        }
+
+        .user:active {
+            transform: scale(.995);
+        }
+
+        .user .avatar {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+        }
+
+        .userName {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #d3d3d3;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .userMeta {
+            margin-top: 3px;
+            color: #505050;
+            font-size: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .status {
+            padding: 4px 6px;
+            border-radius: 999px;
+            border: 1px solid #272727;
+            color: #6d6d6d;
+            font-size: 8px;
+        }
+
+        .status.banned {
+            color: #ca6868;
+            border-color: #4e2626;
+            background: transparent;
+        }
+
+        .detail {
+            min-height: 360px;
+        }
+
+        .empty {
+            padding: 35px 10px;
+            color: #555;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .detailHead {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detailHead .avatar {
+            width: 46px;
+            height: 46px;
+            min-width: 46px;
+        }
+
+        .detailName {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #e4e4e4;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .detailGrid {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns:
+                1fr 1fr;
+            gap: 8px;
+        }
+
+        .info {
+            padding: 10px;
+            border: 1px solid #1e1e1e;
+            border-radius: 8px;
+            background: #090909;
+        }
+
+        .infoLabel {
+            color: #555;
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .infoValue {
+            margin-top: 5px;
+            color: #b7b7b7;
+            font-size: 9px;
+            overflow-wrap: anywhere;
+        }
+
+        .section {
+            margin-top: 13px;
+            padding-top: 12px;
+            border-top: 1px solid #1b1b1b;
+        }
+
+        .sectionTitle {
+            color: #777;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .checks {
+            margin-top: 9px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .check {
+            min-height: 35px;
+            padding: 0 10px;
+            border: 1px solid #242424;
+            border-radius: 8px;
+            background: transparent;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 9px;
+        }
+
+        .check input {
+            accent-color: #c92b2b;
+        }
+
+        .licenseActions {
+            margin-top: 9px;
+            display: grid;
+            grid-template-columns:
+                1fr auto auto;
+            gap: 7px;
+        }
+
+        .dangerRow {
+            margin-top: 9px;
+            display: grid;
+            grid-template-columns:
+                1fr auto;
+            gap: 7px;
+        }
+
+        .logsPanel {
+            margin-top: 12px;
+            padding: 16px;
+        }
+
+        .logs {
+            margin-top: 12px;
+            display: grid;
+            gap: 7px;
+        }
+
+        .log {
+            padding: 10px;
+            border: 1px solid #1e1e1e;
+            border-radius: 8px;
+            background: #090909;
+        }
+
+        .logTop {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .logAction {
+            color: #bdbdbd;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .logTime {
+            color: #4f4f4f;
+            font-size: 8px;
+            white-space: nowrap;
+        }
+
+        .logText {
+            margin-top: 5px;
+            color: #696969;
+            font-size: 8px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform:
+                translate(
+                    -50%,
+                    12px
+                );
+            z-index: 100;
+            padding: 10px 14px;
+            border: 1px solid #272727;
+            border-radius: 9px;
+            background: #101010;
+            color: #bbb;
+            font-size: 9px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .15s;
+        }
+
+        .toast.on {
+            opacity: 1;
+            visibility: visible;
+            transform:
+                translate(
+                    -50%,
+                    0
+                );
+        }
+
+        @media (
+            max-width: 1050px
+        ) {
+            .stats {
+                grid-template-columns:
+                    repeat(
+                        3,
+                        1fr
+                    );
+            }
+
+            .layout {
+                grid-template-columns:
+                    1fr;
+            }
+        }
+
+        @media (
+            max-width: 600px
+        ) {
+            .top {
+                height: 62px;
+            }
+
+            .logo {
+                width: 118px;
+            }
+
+            .nav a:first-child {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+            }
+
+            .detailGrid {
+                grid-template-columns:
+                    1fr;
+            }
+
+            .licenseActions,
+            .dangerRow {
+                grid-template-columns:
+                    1fr;
+            }
+
+            .hero {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <a href="index.html">
+            <img
+                class="logo"
+                src="assets/logo.png"
+                alt="Venom"
+            >
+        </a>
+
+        <nav class="nav">
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="forum.html">
+                Forum
+            </a>
+
+            <a
+                class="on"
+                href="admin.html"
+            >
+                Admin
+            </a>
+        </nav>
+
+        <a
+            class="back"
+            href="dashboard.html"
+            aria-label="Dashboard"
+        >
+            <i data-lucide="arrow-left"></i>
+        </a>
+    </header>
+
+    <main class="shell">
+        <section class="hero">
+            <div>
+                <h1>
+                    Admin
+                </h1>
+
+                <p>
+                    Users, roles, licenses, moderation and immutable audit history.
+                </p>
+            </div>
+
+            <div
+                class="adminIdentity"
+                id="adminIdentity"
+                hidden
+            ></div>
+        </section>
+
+        <section
+            class="stats"
+            id="stats"
+        >
+            <article class="card stat">
+                <div class="statLabel">
+                    Users
+                </div>
+
+                <div class="statValue">
+                    -
+                </div>
+            </article>
+
+            <article class="card stat">
+                <div class="statLabel">
+                    Banned
+                </div>
+
+                <div class="statValue">
+                    -
+                </div>
+            </article>
+
+            <article class="card stat">
+                <div class="statLabel">
+                    Posts
+                </div>
+
+                <div class="statValue">
+                    -
+                </div>
+            </article>
+
+            <article class="card stat">
+                <div class="statLabel">
+                    Comments
+                </div>
+
+                <div class="statValue">
+                    -
+                </div>
+            </article>
+
+            <article class="card stat">
+                <div class="statLabel">
+                    Likes
+                </div>
+
+                <div class="statValue">
+                    -
+                </div>
+            </article>
+
+            <article class="card stat">
+                <div class="statLabel">
+                    Audit logs
+                </div>
+
+                <div class="statValue">
+                    -
+                </div>
+            </article>
+        </section>
+
+        <div class="layout">
+            <section class="card panel">
+                <div class="panelTitle">
+                    Users and licenses
+                </div>
+
+                <div class="panelText">
+                    Search by username, Discord username, user ID, or license.
+                </div>
+
+                <div class="searchRow">
+                    <input
+                        class="input"
+                        id="searchInput"
+                        placeholder="Search users or licenses..."
+                    >
+
+                    <button
+                        class="btn primary"
+                        id="searchBtn"
+                        type="button"
+                    >
+                        <i data-lucide="search"></i>
+
+                        <span>
+                            Search
+                        </span>
+                    </button>
+                </div>
+
+                <div
+                    class="users"
+                    id="users"
+                >
+                    <div class="empty">
+                        Loading users...
+                    </div>
+                </div>
+            </section>
+
+            <section
+                class="card panel detail"
+                id="detail"
+            >
+                <div class="empty">
+                    Select a user to manage them.
+                </div>
+            </section>
+        </div>
+
+        <section class="card logsPanel">
+            <div class="panelTitle">
+                Admin audit log
+            </div>
+
+            <div class="panelText">
+                Every privileged change records who performed it, what changed, the target, and the before/after metadata.
+            </div>
+
+            <div
+                class="logs"
+                id="logs"
+            >
+                <div class="empty">
+                    Loading logs...
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div
+        class="toast"
+        id="toast"
+    ></div>
+
+    <script src="admin.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,1417 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>Venom | Account</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/venom.png"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: #050505;
+            color: #f5f5f5;
+            font-family:
+                Inter,
+                system-ui,
+                sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        body,
+        button,
+        a,
+        input,
+        .ftitle,
+        .copy {
+            text-shadow:
+                -.7px -.7px .5px rgba(255,255,255,.18),
+                .8px .9px 0 rgba(0,0,0,.95),
+                0 1.5px 2px rgba(0,0,0,.5);
+        }
+
+        svg {
+            filter:
+                drop-shadow(
+                    -.8px
+                    -.8px
+                    .5px
+                    rgba(255,255,255,.24)
+                )
+                drop-shadow(
+                    .8px
+                    .9px
+                    0
+                    rgba(0,0,0,.96)
+                );
+        }
+
+        .top {
+            height: 72px;
+            border-bottom: 1px solid #171717;
+
+            display: flex;
+            align-items: center;
+
+            padding:
+                0
+                clamp(
+                    14px,
+                    3vw,
+                    30px
+                );
+
+            position: sticky;
+            top: 0;
+
+            background:
+                rgba(
+                    5,
+                    5,
+                    5,
+                    .96
+                );
+
+            backdrop-filter:
+                blur(14px);
+
+            z-index: 20;
+        }
+
+        .logo {
+            width:
+                clamp(
+                    148px,
+                    17vw,
+                    194px
+                );
+
+            height: 52px;
+
+            object-fit: contain;
+
+            object-position:
+                left center;
+        }
+
+        .nav {
+            position: absolute;
+
+            left: 50%;
+
+            transform:
+                translateX(
+                    -50%
+                );
+
+            display: flex;
+            align-items: center;
+
+            gap:
+                clamp(
+                    16px,
+                    2.4vw,
+                    30px
+                );
+
+            height: 100%;
+        }
+
+        .tab {
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+
+            color: #8f8f8f;
+
+            text-decoration: none;
+
+            font-size:
+                clamp(
+                    10px,
+                    1vw,
+                    13px
+                );
+
+            font-weight: 600;
+
+            letter-spacing: .08em;
+
+            white-space: nowrap;
+
+            transition:
+                color .18s;
+        }
+
+        .tab:hover {
+            color: #d72828;
+        }
+
+        .icons {
+            margin-left: auto;
+        }
+
+        .ic {
+            color: #999;
+
+            text-decoration: none;
+
+            display: grid;
+
+            place-items: center;
+
+            padding: 6px;
+
+            transition:
+                color .18s;
+        }
+
+        .ic:hover {
+            color: #d72828;
+        }
+
+        .ic svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .authmain {
+            flex: 1;
+
+            width: 100%;
+
+            display: grid;
+
+            place-items: center;
+
+            padding:
+                46px
+                18px
+                56px;
+        }
+
+        .authcard {
+            width:
+                min(
+                    470px,
+                    100%
+                );
+
+            background:
+                radial-gradient(
+                    circle at 7% 0%,
+                    rgba(255,255,255,.035),
+                    transparent 35%
+                ),
+                #0b0b0b;
+
+            border:
+                1px solid #1c1c1c;
+
+            border-radius:
+                15px;
+
+            box-shadow:
+                0
+                24px
+                80px
+                rgba(0,0,0,.42);
+
+            overflow: hidden;
+        }
+
+        .authtabs {
+            display: flex;
+
+            gap: 22px;
+
+            padding:
+                18px
+                22px
+                0;
+
+            border-bottom:
+                1px solid #171717;
+        }
+
+        .authtab {
+            position: relative;
+
+            border: 0;
+
+            background:
+                transparent;
+
+            color: #767676;
+
+            padding:
+                0
+                0
+                14px;
+
+            font:
+                600
+                13px
+                Inter,
+                system-ui,
+                sans-serif;
+
+            cursor: pointer;
+        }
+
+        .authtab.on {
+            color: #e13a3a;
+        }
+
+        .authtab.on::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: -1px;
+
+            height: 2px;
+
+            border-radius:
+                999px;
+
+            background:
+                #d72828;
+
+            box-shadow:
+                0 -1px 0 rgba(255,255,255,.09),
+                0 1px 2px rgba(0,0,0,.6);
+        }
+
+        .authbody {
+            padding: 22px;
+        }
+
+        .authintro {
+            margin-bottom: 18px;
+        }
+
+        .authintro h1 {
+            margin: 0;
+
+            color: #eee;
+
+            font-size: 18px;
+
+            font-weight: 600;
+        }
+
+        .authintro p {
+            margin:
+                6px
+                0
+                0;
+
+            color: #767676;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+        .field {
+            display: grid;
+
+            gap: 7px;
+
+            margin-top: 13px;
+        }
+
+        .field label {
+            color: #8f8f8f;
+
+            font-size: 10px;
+
+            font-weight: 600;
+        }
+
+        .field input {
+            width: 100%;
+
+            height: 42px;
+
+            padding:
+                0
+                12px;
+
+            border-radius:
+                9px;
+
+            border:
+                1px solid #242424;
+
+            outline: none;
+
+            background:
+                radial-gradient(
+                    circle at 8% 0%,
+                    rgba(255,255,255,.045),
+                    transparent 25%
+                ),
+                #111;
+
+            color: #eee;
+
+            font:
+                500
+                12px
+                Inter,
+                system-ui,
+                sans-serif;
+
+            box-shadow:
+                inset 1px 1px 0 rgba(255,255,255,.035),
+                inset -1px -1px 0 rgba(0,0,0,.75);
+
+            transition:
+                border-color .16s,
+                box-shadow .16s;
+        }
+
+        .field input:focus {
+            border-color:
+                #873030;
+
+            box-shadow:
+                0
+                0
+                0
+                3px
+                rgba(215,40,40,.07),
+                inset
+                1px
+                1px
+                0
+                rgba(255,255,255,.04);
+        }
+
+        .field input.valid {
+            border-color:
+                #285f38;
+        }
+
+        .field input.invalid {
+            border-color:
+                #8c3030;
+        }
+
+        .fieldHint {
+            min-height: 13px;
+
+            color: #5f5f5f;
+
+            font-size: 9px;
+
+            line-height: 1.4;
+        }
+
+        .fieldHint.good {
+            color: #4f9b65;
+        }
+
+        .fieldHint.bad {
+            color: #c75858;
+        }
+
+        .fieldHint.checking {
+            color: #777;
+        }
+
+        .passwordWrap {
+            position: relative;
+        }
+
+        .passwordWrap input {
+            padding-right: 42px;
+        }
+
+        .passwordToggle {
+            position: absolute;
+
+            right: 8px;
+            top: 50%;
+
+            transform:
+                translateY(
+                    -50%
+                );
+
+            width: 30px;
+            height: 30px;
+
+            border: 0;
+
+            border-radius:
+                7px;
+
+            background:
+                transparent;
+
+            color: #666;
+
+            display: grid;
+
+            place-items: center;
+
+            cursor: pointer;
+        }
+
+        .passwordToggle:hover {
+            color: #aaa;
+
+            background:
+                #171717;
+        }
+
+        .passwordToggle svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .legalChecks {
+            display: grid;
+
+            gap: 9px;
+
+            margin-top: 17px;
+
+            padding: 13px;
+
+            border:
+                1px solid #1d1d1d;
+
+            border-radius:
+                9px;
+
+            background:
+                #0d0d0d;
+        }
+
+        .legalCheck {
+            display: flex;
+
+            align-items:
+                flex-start;
+
+            gap: 9px;
+
+            color: #777;
+
+            font-size: 9px;
+
+            line-height: 1.55;
+
+            cursor: pointer;
+        }
+
+        .legalCheck input {
+            appearance: none;
+
+            width: 15px;
+            height: 15px;
+
+            min-width: 15px;
+
+            margin: 0;
+
+            margin-top: 1px;
+
+            border:
+                1px solid #303030;
+
+            border-radius:
+                4px;
+
+            background:
+                #121212;
+
+            cursor: pointer;
+
+            position: relative;
+        }
+
+        .legalCheck input:checked {
+            border-color:
+                #b72a2a;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #e44747,
+                    #bf2424
+                );
+        }
+
+        .legalCheck input:checked::after {
+            content: "";
+
+            position: absolute;
+
+            left: 4px;
+            top: 1px;
+
+            width: 4px;
+            height: 8px;
+
+            border-right:
+                2px solid #fff;
+
+            border-bottom:
+                2px solid #fff;
+
+            transform:
+                rotate(
+                    45deg
+                );
+        }
+
+        .legalCheck a {
+            color: #aa3f3f;
+
+            text-decoration: none;
+        }
+
+        .legalCheck a:hover {
+            color: #df5050;
+        }
+
+        .oauth {
+            display: grid;
+
+            grid-template-columns:
+                1fr;
+
+            gap: 10px;
+
+            margin-top: 18px;
+        }
+
+        .oauthbtn {
+            min-height: 42px;
+
+            border-radius:
+                9px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            font:
+                600
+                11px
+                Inter,
+                system-ui,
+                sans-serif;
+
+            cursor: pointer;
+
+            transition:
+                transform .13s,
+                filter .13s;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .oauthbtn:hover {
+            filter:
+                brightness(
+                    1.06
+                );
+
+            transform:
+                translateY(
+                    -1px
+                );
+        }
+
+        .oauthbtn:active {
+            transform:
+                translateY(
+                    2px
+                );
+        }
+
+        .oauthIcon {
+            width: 17px;
+            height: 17px;
+
+            flex:
+                0
+                0
+                17px;
+        }
+
+        .oauthIcon svg {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+        }
+
+        .oauthbtn.discord {
+            border:
+                1px solid #6670e2;
+
+            color: #fff;
+
+            background:
+                radial-gradient(
+                    circle at 13% 5%,
+                    rgba(255,255,255,.18),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    145deg,
+                    #6975e8,
+                    #5865f2 56%,
+                    #4752c4
+                );
+
+            box-shadow:
+                0 3px 0 #8991ef,
+                inset 1px 1px 0 rgba(255,255,255,.15),
+                inset -1px -1px 0 rgba(0,0,0,.12);
+        }
+
+        .oauthbtn.discord .oauthIcon {
+            color: #fff;
+        }
+
+        .or {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin:
+                20px
+                0
+                2px;
+
+            color: #555;
+
+            font-size: 9px;
+        }
+
+        .or::before,
+        .or::after {
+            content: "";
+
+            height: 1px;
+
+            flex: 1;
+
+            background:
+                #1c1c1c;
+        }
+
+        .captcha {
+            width: 100%;
+
+            margin-top: 17px;
+
+            min-height: 66px;
+
+            padding:
+                0
+                15px;
+
+            border-radius:
+                9px;
+
+            border:
+                1px solid #1e1e1e;
+
+            background:
+                #0e0e0e;
+
+            color: #777;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 12px;
+
+            cursor: pointer;
+
+            text-align: left;
+
+            transition:
+                background .16s,
+                border-color .16s;
+        }
+
+        .captcha:hover {
+            background:
+                #111;
+        }
+
+        .captchaText {
+            display: flex;
+
+            flex-direction:
+                column;
+
+            gap: 3px;
+        }
+
+        .captchaTitle {
+            color: #bcbcbc;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+        .captchaSub {
+            color: #616161;
+
+            font-size: 9px;
+        }
+
+        .captchaIcon {
+            width: 28px;
+            height: 28px;
+
+            border:
+                1px solid #292929;
+
+            border-radius:
+                7px;
+
+            display: grid;
+
+            place-items: center;
+
+            color: #7a7a7a;
+        }
+
+        .captchaIcon svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .captcha.verified {
+            border-color:
+                #245532;
+        }
+
+        .captcha.verified .captchaTitle,
+        .captcha.verified .captchaIcon {
+            color: #55976a;
+        }
+
+        .authbtn {
+            width: 100%;
+
+            min-height: 42px;
+
+            margin-top: 15px;
+
+            border-radius:
+                9px;
+
+            border:
+                1px solid #c52727;
+
+            color: #fff;
+
+            background:
+                radial-gradient(
+                    circle at 13% 5%,
+                    rgba(255,255,255,.32),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    145deg,
+                    #ef4a4a,
+                    #d52c2c 52%,
+                    #b51f1f
+                );
+
+            box-shadow:
+                0 3px 0 #e57777,
+                inset 1px 1px 0 rgba(255,255,255,.23),
+                inset -1px -1px 0 rgba(0,0,0,.16);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            font:
+                600
+                11px
+                Inter,
+                system-ui,
+                sans-serif;
+
+            cursor: pointer;
+
+            transition:
+                transform .13s,
+                filter .13s,
+                opacity .13s;
+        }
+
+        .authbtn:hover:not(:disabled) {
+            filter:
+                brightness(
+                    1.06
+                );
+
+            transform:
+                translateY(
+                    -1px
+                );
+        }
+
+        .authbtn:active:not(:disabled) {
+            transform:
+                translateY(
+                    2px
+                );
+        }
+
+        .authbtn:disabled,
+        .authbtn.locked {
+            border-color:
+                #292929;
+
+            color: #686868;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #202020,
+                    #171717 55%,
+                    #111
+                );
+
+            box-shadow:
+                0 3px 0 #313131,
+                inset 1px 1px 0 rgba(255,255,255,.04);
+
+            cursor:
+                not-allowed;
+
+            filter:
+                none;
+        }
+
+        .authbtn svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .authmsg {
+            min-height: 16px;
+
+            margin-top: 12px;
+
+            color: #d85c5c;
+
+            font-size: 10px;
+
+            text-align: center;
+
+            line-height: 1.5;
+        }
+
+        .foot {
+            margin-top: auto;
+
+            min-height: 112px;
+
+            border-top:
+                1px solid #171717;
+
+            padding:
+                16px
+                clamp(
+                    14px,
+                    3vw,
+                    30px
+                );
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(
+                    170px,
+                    1fr
+                )
+                auto
+                minmax(
+                    170px,
+                    1fr
+                );
+
+            align-items:
+                start;
+
+            gap: 28px;
+
+            color: #666;
+        }
+
+        .fbrand {
+            position: relative;
+
+            width:
+                fit-content;
+
+            padding-top: 7px;
+        }
+
+        .flogo {
+            width:
+                clamp(
+                    158px,
+                    16vw,
+                    190px
+                );
+
+            height: 52px;
+
+            object-fit: contain;
+
+            object-position:
+                left center;
+
+            filter:
+                grayscale(
+                    1
+                );
+
+            opacity: .38;
+        }
+
+        .copy {
+            position: absolute;
+
+            top: 3px;
+            right: -21px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 2px;
+
+            color: #666;
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+        .copy svg {
+            width: 9px;
+            height: 9px;
+        }
+
+        .fcols {
+            display: flex;
+
+            justify-content: center;
+
+            gap:
+                clamp(
+                    34px,
+                    7vw,
+                    76px
+                );
+        }
+
+        .fcol {
+            display: flex;
+
+            flex-direction:
+                column;
+
+            gap: 8px;
+
+            min-width: 100px;
+        }
+
+        .ftitle {
+            margin-bottom: 3px;
+
+            color: #b9b9b9;
+
+            font-size: 10px;
+
+            font-weight: 600;
+        }
+
+        .fcol a {
+            color: #666;
+
+            text-decoration:
+                none;
+
+            font-size: 10px;
+        }
+
+        .fcol a:hover {
+            color: #d72828;
+        }
+
+        @media (max-width: 640px) {
+            .top {
+                height: 64px;
+
+                padding:
+                    0
+                    10px;
+            }
+
+            .logo {
+                width: 118px;
+
+                height: 44px;
+            }
+
+            .nav {
+                gap: 10px;
+            }
+
+            .tab {
+                font-size: 9px;
+
+                letter-spacing:
+                    .04em;
+            }
+
+            .authmain {
+                place-items:
+                    start
+                    center;
+
+                padding:
+                    30px
+                    12px
+                    38px;
+            }
+
+            .authbody {
+                padding: 18px;
+            }
+
+            .foot {
+                grid-template-columns:
+                    1fr;
+
+                gap: 22px;
+            }
+
+            .fcols {
+                justify-content:
+                    flex-start;
+
+                flex-wrap:
+                    wrap;
+
+                gap: 34px;
+            }
+
+            .fspace {
+                display: none;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .oauth {
+                grid-template-columns:
+                    1fr;
+            }
+        }
+
+        @media (max-width: 410px) {
+            .logo {
+                width: 96px;
+            }
+
+            .nav {
+                gap: 7px;
+            }
+
+            .tab {
+                font-size: 8px;
+            }
+
+            .authmain {
+                padding-left: 10px;
+
+                padding-right: 10px;
+            }
+
+            .authbody {
+                padding:
+                    16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .logo {
+                width: 82px;
+            }
+
+            .nav {
+                gap: 5px;
+            }
+
+            .tab {
+                font-size: 7px;
+            }
+
+            .ic {
+                padding: 3px;
+            }
+
+            .ic svg {
+                width: 17px;
+                height: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <a href="index.html">
+            <img
+                class="logo"
+                src="assets/logo.png"
+                alt="Venom"
+            >
+        </a>
+
+        <nav class="nav">
+            <a
+                class="tab"
+                href="index.html"
+            >
+                Home
+            </a>
+
+            <a
+                class="tab"
+                href="products.html"
+            >
+                Products
+            </a>
+
+            <a
+                class="tab"
+                href="about.html"
+            >
+                About
+            </a>
+        </nav>
+
+        <div class="icons">
+            <a
+                class="ic"
+                href="index.html"
+                aria-label="Back home"
+            >
+                <i data-lucide="house"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="authmain">
+        <section class="authcard">
+            <div class="authtabs">
+                <button
+                    class="authtab"
+                    type="button"
+                    data-mode="login"
+                >
+                    Login
+                </button>
+
+                <button
+                    class="authtab"
+                    type="button"
+                    data-mode="signup"
+                >
+                    Sign up
+                </button>
+            </div>
+
+            <div class="authbody">
+                <div class="authintro">
+                    <h1 id="authTitle">
+                        Login
+                    </h1>
+
+                    <p id="authText">
+                        Enter your details to continue.
+                    </p>
+                </div>
+
+                <form
+                    id="authForm"
+                    novalidate
+                >
+                    <div id="fields"></div>
+
+                    <div class="oauth">
+
+                        <button
+                            class="oauthbtn discord"
+                            id="discordAuth"
+                            type="button"
+                            data-provider="discord"
+                        >
+                            <span
+                                class="oauthIcon"
+                                aria-hidden="true"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M20.32 4.37A19.8 19.8 0 0 0 15.44 2.9c-.21.38-.46.89-.63 1.3a18.3 18.3 0 0 0-5.62 0 13.5 13.5 0 0 0-.64-1.3 19.7 19.7 0 0 0-4.89 1.48C.57 9.1-.26 13.7.18 18.24a19.9 19.9 0 0 0 5.99 3.02c.48-.66.91-1.36 1.28-2.1a13 13 0 0 1-2.02-.97l.5-.39c3.9 1.8 8.13 1.8 11.98 0l.5.39c-.65.38-1.33.7-2.02.97.37.74.8 1.44 1.28 2.1a19.8 19.8 0 0 0 6-3.02c.51-5.27-.87-9.82-3.35-13.87ZM8.02 15.46c-1.17 0-2.13-1.08-2.13-2.4 0-1.33.94-2.41 2.13-2.41 1.2 0 2.16 1.09 2.14 2.4 0 1.33-.94 2.41-2.14 2.41Zm7.96 0c-1.17 0-2.13-1.08-2.13-2.4 0-1.33.94-2.41 2.13-2.41 1.2 0 2.16 1.09 2.14 2.4 0 1.33-.94 2.41-2.14 2.41Z"
+                                    />
+                                </svg>
+                            </span>
+
+                            <span id="discordText">
+                                Continue with Discord
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="or">
+                        or continue with your details
+                    </div>
+
+                    <button
+                        class="captcha"
+                        id="captcha"
+                        type="button"
+                    >
+                        <span class="captchaText">
+                            <span class="captchaTitle">
+                                Human verification
+                            </span>
+
+                            <span class="captchaSub">
+                                Preparing verification...
+                            </span>
+                        </span>
+
+                        <span class="captchaIcon">
+                            <i data-lucide="shield-check"></i>
+                        </span>
+                    </button>
+
+                    <button
+                        class="authbtn"
+                        id="submitBtn"
+                        type="submit"
+                    >
+                        <i data-lucide="log-in"></i>
+
+                        <span>
+                            Login
+                        </span>
+                    </button>
+
+                    <div
+                        class="authmsg"
+                        id="authMsg"
+                    ></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer
+        class="foot"
+        id="footer"
+    ></footer>
+
+    <script src="footer.js"></script>
+    <script src="cookie.js"></script>
+    <script src="ls.js"></script>
+
+    <script>
+        if (
+            window.lucide
+        ) {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
